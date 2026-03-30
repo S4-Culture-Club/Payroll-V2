@@ -1163,12 +1163,12 @@ tr:hover td{background:var(--surface2)}
           <div class="pipe-step pending"><div class="pipe-dot">5</div><div class="pipe-label">Reports</div></div>
           <div class="pipe-step pending"><div class="pipe-dot">6</div><div class="pipe-label">BACS</div></div>
         </div>
-        <div class="run-meta">
-          <div class="run-meta-item"><div class="label">Employees</div><div class="value">84</div></div>
-          <div class="run-meta-item"><div class="label">Gross pay</div><div class="value">£36,210</div></div>
-          <div class="run-meta-item"><div class="label">PAYE</div><div class="value">£5,793</div></div>
-          <div class="run-meta-item"><div class="label">NI (EE+ER)</div><div class="value">£6,948</div></div>
-          <div class="run-meta-item"><div class="label">Net pay</div><div class="value">£26,458</div></div>
+        <div class="run-meta" id="run-card-metrics">
+          <div class="run-meta-item"><div class="label">Employees</div><div class="value"><span data-run="count">—</span></div></div>
+          <div class="run-meta-item"><div class="label">Gross pay</div><div class="value"><span data-run="gross">—</span></div></div>
+          <div class="run-meta-item"><div class="label">PAYE</div><div class="value"><span data-run="paye">—</span></div></div>
+          <div class="run-meta-item"><div class="label">NI (EE+ER)</div><div class="value"><span data-run="ni">—</span></div></div>
+          <div class="run-meta-item"><div class="label">Net pay</div><div class="value"><span data-run="net">—</span></div></div>
         </div>
         <div style="margin-top:10px;font-size:11px;color:var(--text3)">Pay date: 4 Apr 2026 · BACS deadline: 1 Apr 2026 · Cut-off: 31 Mar 2026 · Processed by: J. Ashworth</div>
       </div>
@@ -1233,12 +1233,7 @@ tr:hover td{background:var(--surface2)}
         <div class="card-header"><div class="card-title">Hours for W14 — 31 Mar to 6 Apr 2026</div><div class="card-sub">84 employees · 12 amended this period</div></div>
         <div class="table-wrap"><table>
           <thead><tr><th>Employee</th><th>Department</th><th>Contracted hrs</th><th>Entered hrs</th><th>Diff</th><th>Note</th><th></th></tr></thead>
-          <tbody>
-            <tr><td><div class="font-600">Emma Walsh</div></td><td>Front of house</td><td class="td-num">37.5</td><td class="td-num">40.0</td><td class="td-num metric-up">+2.5</td><td class="text-xs text-hint">Cover shift</td><td><button class="btn btn-xs" onclick="showModal('modal-add-hours')">Edit</button></td></tr>
-            <tr><td><div class="font-600">Oliver Brown</div></td><td>Kitchen</td><td class="td-num">37.5</td><td class="td-num" style="color:var(--danger-text);font-weight:600">68.0</td><td class="td-num metric-up">+30.5</td><td><span class="badge badge-warning">Override logged</span></td><td><button class="btn btn-xs" onclick="showModal('modal-add-hours')">Edit</button></td></tr>
-            <tr><td><div class="font-600">Priya Sharma</div></td><td>Front of house</td><td class="td-num">37.5</td><td class="td-num">37.5</td><td class="td-num td-muted">—</td><td>—</td><td><button class="btn btn-xs" onclick="showModal('modal-add-hours')">Edit</button></td></tr>
-            <tr><td colspan="7" style="text-align:center;color:var(--text3);font-size:12px;padding:12px">+ 81 more employees</td></tr>
-          </tbody>
+          <tbody id="hours-tbody"></tbody>
         </table></div>
       </div>
       <div class="card">
@@ -1265,13 +1260,7 @@ tr:hover td{background:var(--surface2)}
       <div class="card">
         <div class="table-wrap"><table>
           <thead><tr><th>Employee</th><th>Department</th><th>Pay type</th><th>Rate</th><th>Tax code</th><th>NI cat</th><th>Status</th><th></th></tr></thead>
-          <tbody>
-            <tr><td><div class="font-600">Emma Walsh</div><div class="text-xs mono text-hint">AB123400A</div></td><td>Front of house</td><td><span class="tag">Hourly</span></td><td class="td-num">£13.85/hr</td><td class="mono td-muted">1257L</td><td class="td-muted">A</td><td><span class="badge badge-success">Active</span></td><td><button class="btn btn-xs" onclick="nav('employee-profile',null,'org')">View</button></td></tr>
-            <tr><td><div class="font-600">Oliver Brown</div><div class="text-xs mono text-hint">CD234500B</div></td><td>Kitchen</td><td><span class="tag">Hourly</span></td><td class="td-num">£13.85/hr</td><td class="mono td-muted">1257L</td><td class="td-muted">A</td><td><span class="badge badge-success">Active</span></td><td><button class="btn btn-xs" onclick="nav('employee-profile',null,'org')">View</button></td></tr>
-            <tr><td><div class="font-600">Sarah Mitchell</div><div class="text-xs mono text-hint">EF345600C</div></td><td>Management</td><td><span class="tag">Salary</span></td><td class="td-num">£32,000/yr</td><td class="mono td-muted">1257L</td><td class="td-muted">A</td><td><span class="badge badge-purple">On SMP</span></td><td><button class="btn btn-xs" onclick="nav('employee-profile',null,'org')">View</button></td></tr>
-            <tr><td><div class="font-600">Daniel Park</div><div class="text-xs mono text-hint">IJ567800E</div></td><td>Kitchen</td><td><span class="tag">Hourly</span></td><td class="td-num">£13.85/hr</td><td class="mono td-muted">1257L</td><td class="td-muted">A</td><td><span class="badge badge-info">On SPP</span></td><td><button class="btn btn-xs" onclick="nav('employee-profile',null,'org')">View</button></td></tr>
-            <tr><td colspan="8" style="text-align:center;color:var(--text3);font-size:12px;padding:12px">+ 80 more employees</td></tr>
-          </tbody>
+          <tbody id="employees-tbody"></tbody>
         </table></div>
       </div>
     </div>
@@ -1309,11 +1298,13 @@ tr:hover td{background:var(--surface2)}
             <div class="info-row"><span class="info-label">Address</span><span class="info-value">12 High St, Birmingham, B1 1AA</span></div>
             <div class="info-row"><span class="info-label">Email</span><span class="info-value">e.walsh@email.com</span></div>
           </div>
-          <div class="card"><div class="card-header"><div class="card-title">Employment details</div><button class="btn btn-sm">Edit</button></div>
-            <div class="info-row"><span class="info-label">Start date</span><span class="info-value">6 Jan 2023</span></div>
-            <div class="info-row"><span class="info-label">Pay type</span><span class="info-value">Hourly · £13.85/hr</span></div>
-            <div class="info-row"><span class="info-label">Pay frequency</span><span class="info-value">Weekly</span></div>
-            <div class="info-row"><span class="info-label">Department</span><span class="info-value">Front of house — Site A</span></div>
+          <div class="card" id="emp-personal-details"><div class="card-header"><div class="card-title">Employment details</div><button class="btn btn-sm">Edit</button></div>
+            <div class="info-row"><span class="info-label">Start date</span><span class="info-value" data-f="start">6 Jan 2023</span></div>
+            <div class="info-row"><span class="info-label">Pay type</span><span class="info-value" data-f="payType">Hourly · £13.85/hr</span></div>
+            <div class="info-row"><span class="info-label">Pay frequency</span><span class="info-value" data-f="freq">Weekly</span></div>
+            <div class="info-row"><span class="info-label">Department</span><span class="info-value" data-f="dept">Front of house — Site A</span></div>
+            <div class="info-row"><span class="info-label">Tax code</span><span class="info-value mono" data-f="taxCode">1257L</span></div>
+            <div class="info-row"><span class="info-label">NI category</span><span class="info-value" data-f="niCat">A</span></div>
           </div>
           <div class="card"><div class="card-header"><div class="card-title">Tax &amp; NI</div><div class="pulled">↻ DPS updated this run</div></div>
             <div class="info-row"><span class="info-label">Tax code</span><span class="info-value mono">1257L</span></div>
@@ -1338,12 +1329,8 @@ tr:hover td{background:var(--surface2)}
         </div>
         <div class="card"><div class="card-title" style="margin-bottom:14px">Pay history</div>
           <div class="table-wrap"><table>
-            <thead><tr><th>Period</th><th>Hours</th><th class="td-num">Gross</th><th class="td-num">PAYE</th><th class="td-num">NI (EE)</th><th class="td-num">Net</th><th></th></tr></thead>
-            <tbody>
-              <tr><td>W13 Mar 2026</td><td>40</td><td class="td-num">£554.00</td><td class="td-num">£88.64</td><td class="td-num">£44.32</td><td class="td-num">£421.04</td><td><button class="btn btn-xs">Payslip</button></td></tr>
-              <tr><td>W12 Mar 2026</td><td>37.5</td><td class="td-num">£519.38</td><td class="td-num">£83.10</td><td class="td-num">£41.55</td><td class="td-num">£394.73</td><td><button class="btn btn-xs">Payslip</button></td></tr>
-              <tr><td>W11 Mar 2026</td><td>40</td><td class="td-num">£554.00</td><td class="td-num">£88.64</td><td class="td-num">£44.32</td><td class="td-num">£421.04</td><td><button class="btn btn-xs">Payslip</button></td></tr>
-            </tbody>
+            <thead><tr><th>Period</th><th class="td-num">Hours</th><th class="td-num">Gross</th><th class="td-num">PAYE</th><th class="td-num">NI (EE)</th><th class="td-num" style="color:var(--text2)">NI (ER)</th><th class="td-num" style="color:var(--success-text)">Pension EE</th><th class="td-num" style="color:var(--teal-text)">Pension ER</th><th class="td-num">Net pay</th><th></th></tr></thead>
+            <tbody id="pay-history-tbody"></tbody>
           </table></div>
         </div>
       </div>
@@ -1391,18 +1378,36 @@ tr:hover td{background:var(--surface2)}
         </div>
       </div>
       <div class="emp-tab-panel" id="emp-pension">
-        <div class="grid-2">
-          <div class="card"><div class="card-header"><div class="card-title">Auto-enrolment</div><button class="btn btn-sm">Edit</button></div>
+        <div class="grid-2" style="margin-bottom:16px">
+          <div class="card no-mb"><div class="card-header"><div class="card-title">Auto-enrolment</div><button class="btn btn-sm">Edit</button></div>
             <div class="info-row"><span class="info-label">Scheme</span><span class="info-value">NEST — The Coffee Co.</span></div>
             <div class="info-row"><span class="info-label">Status</span><span class="info-value"><span class="badge badge-success">Enrolled</span></span></div>
             <div class="info-row"><span class="info-label">Enrolment date</span><span class="info-value">6 Jan 2023</span></div>
-            <div class="info-row"><span class="info-label">EE contribution</span><span class="info-value">5% (salary sacrifice)</span></div>
-            <div class="info-row"><span class="info-label">ER contribution</span><span class="info-value">3%</span></div>
+            <div class="info-row"><span class="info-label">Employee contribution</span><span class="info-value" id="pension-ee-rate">5% (salary sacrifice)</span></div>
+            <div class="info-row"><span class="info-label">Employer contribution</span><span class="info-value" id="pension-er-rate">3%</span></div>
+            <div class="info-row"><span class="info-label">Basis</span><span class="info-value">Qualifying earnings (£6,240–£50,270)</span></div>
           </div>
-          <div class="card"><div class="metrics g2">
-            <div class="metric"><div class="metric-label">EE YTD</div><div class="metric-value">£391.60</div></div>
-            <div class="metric"><div class="metric-label">ER YTD</div><div class="metric-value">£234.96</div></div>
-          </div></div>
+          <div class="card no-mb">
+            <div class="metrics" style="grid-template-columns:1fr 1fr 1fr;gap:10px">
+              <div class="metric m-green"><div class="metric-label">Employee YTD</div><div class="metric-value" style="font-size:18px">—</div><div class="metric-sub">Salary sacrifice</div></div>
+              <div class="metric m-blue"><div class="metric-label">Employer YTD</div><div class="metric-value" style="font-size:18px">—</div><div class="metric-sub">Employer cost</div></div>
+              <div class="metric m-gold"><div class="metric-label">Total YTD</div><div class="metric-value" style="font-size:18px">—</div><div class="metric-sub">Combined</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header"><div class="card-title">Pension contribution history</div></div>
+          <div class="table-wrap"><table>
+            <thead><tr>
+              <th>Period</th>
+              <th class="td-num">Gross pay</th>
+              <th class="td-num td-muted">Qualifying earnings</th>
+              <th class="td-num" style="color:var(--success-text)">EE contribution</th>
+              <th class="td-num" style="color:var(--teal-text)">ER contribution</th>
+              <th class="td-num">Total</th>
+            </tr></thead>
+            <tbody id="pension-history-tbody"></tbody>
+          </table></div>
         </div>
       </div>
     </div>
@@ -1565,8 +1570,8 @@ tr:hover td{background:var(--surface2)}
           </div>
         </div>
         <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px">
-          <div><div class="text-xs text-hint">Total net pay</div><div class="font-600 text-sm" style="font-family:'DM Mono',monospace">£26,458.00</div></div>
-          <div><div class="text-xs text-hint">Employees</div><div class="font-600 text-sm">84 records</div></div>
+          <div><div class="text-xs text-hint">Total net pay</div><div class="font-600 text-sm" style="font-family:'DM Mono',monospace"><span id="bacs-net-total">—</span></div></div>
+          <div><div class="text-xs text-hint">Employees</div><div class="font-600 text-sm"><span id="bacs-emp-count">—</span></div></div>
           <div><div class="text-xs text-hint">Service user number</div><div class="font-600 text-sm" style="font-family:'DM Mono',monospace">123456</div></div>
           <div><div class="text-xs text-hint">Processing date</div><div class="font-600 text-sm">4 Apr 2026</div></div>
         </div>
@@ -1574,11 +1579,7 @@ tr:hover td{background:var(--surface2)}
         <div class="card-title" style="font-size:12px;margin-bottom:10px">BACS detail (sample)</div>
         <div class="table-wrap"><table style="font-size:12px">
           <thead><tr><th>Employee</th><th>Sort code</th><th>Account</th><th class="td-num">Net pay</th><th>Reference</th></tr></thead>
-          <tbody>
-            <tr><td>Emma Walsh</td><td class="mono">20-00-00</td><td class="mono">●●●●●●89</td><td class="td-num">£421.04</td><td class="mono text-xs td-muted">COFFEECO/W13/84</td></tr>
-            <tr><td>Oliver Brown</td><td class="mono">30-00-04</td><td class="mono">●●●●●●12</td><td class="td-num">£715.77</td><td class="mono text-xs td-muted">COFFEECO/W13/85</td></tr>
-            <tr><td colspan="5" class="text-xs td-muted" style="padding:8px 12px;text-align:center">+ 82 more records</td></tr>
-          </tbody>
+          <tbody id="bacs-detail-tbody"></tbody>
         </table></div>
       </div>
 
@@ -1695,12 +1696,8 @@ tr:hover td{background:var(--surface2)}
       <div class="metric m-red"><div class="metric-label">PAYE + NI due</div><div class="metric-value">£12,741</div></div>
     </div>
     <div class="table-wrap"><table>
-      <thead><tr><th>Employee</th><th>Hours</th><th class="td-num">Gross</th><th class="td-num">PAYE</th><th class="td-num">NI (EE)</th><th class="td-num">Net</th></tr></thead>
-      <tbody>
-        <tr><td>Emma Walsh</td><td>40</td><td class="td-num">£554.00</td><td class="td-num">£88.64</td><td class="td-num">£44.32</td><td class="td-num">£421.04</td></tr>
-        <tr><td>Oliver Brown</td><td>68</td><td class="td-num">£941.80</td><td class="td-num">£150.69</td><td class="td-num">£75.34</td><td class="td-num">£715.77</td></tr>
-        <tr><td colspan="6" style="text-align:center;color:var(--text3);font-size:12px">+ 82 more employees</td></tr>
-      </tbody>
+      <thead><tr><th>Employee</th><th>Hours</th><th class="td-num">Gross</th><th class="td-num">PAYE</th><th class="td-num">NI (EE)</th><th class="td-num" style="color:var(--text2)">NI (ER)</th><th class="td-num" style="color:var(--success-text)">Pension EE</th><th class="td-num" style="color:var(--teal-text)">Pension ER</th><th class="td-num font-600">Net</th></tr></thead>
+      <tbody id="run-detail-tbody"></tbody>
     </table></div>
     <div class="modal-footer"><button class="btn" onclick="closeModal('modal-run-detail')">Close</button><button class="btn btn-sm" onclick="closeModal('modal-run-detail');showModal('modal-run-amend')">Amend</button><button class="btn btn-primary" onclick="closeModal('modal-run-detail');showModal('modal-run-approve')">Approve run</button></div>
   </div>
@@ -1937,70 +1934,479 @@ tr:hover td{background:var(--surface2)}
 </div>
 
 <script>
-// ── STATE ──
-let currentOrgName = 'The Coffee Co.';
-let currentNavContext = 'bureau'; // bureau | org
+// ═══════════════════════════════════════════════════════════════
+// UK PAYROLL CALCULATION ENGINE — 2025/26 Tax Year
+// ═══════════════════════════════════════════════════════════════
 
-// ── NAVIGATION ──
+const TAX = {
+  pa: 12570, brl: 50270, hrl: 125140,
+  br: 0.20, hr: 0.40, ar: 0.45,
+  niPT: 12570, niUEL: 50270, niST: 9100,
+  niEEMain: 0.08, niEEAdd: 0.02, niER: 0.138,
+  smpFlat: 184.03, sppFlat: 184.03, sspWeekly: 116.75,
+  pensionQELow: 6240, pensionQEHigh: 50270,
+  nlw: 12.21,
+};
+
+function periodDivisor(freq) {
+  return freq === 'weekly' ? 52 : freq === 'monthly' ? 12 : 13;
+}
+
+function calcPAYE(periodGross, freq, taxCode) {
+  // Annualise, apply personal allowance, calculate tax, de-annualise
+  const d = periodDivisor(freq);
+  const pa = (taxCode && /^\d+L/.test(taxCode)) ? parseInt(taxCode) * 10 : TAX.pa;
+  const annGross = periodGross * d;
+  const taxable = Math.max(0, annGross - pa);
+  let annTax = 0;
+  const b1 = Math.max(0, TAX.brl - pa);
+  const b2 = Math.max(0, TAX.hrl - TAX.brl);
+  if (taxable <= b1) {
+    annTax = taxable * TAX.br;
+  } else if (taxable <= b1 + b2) {
+    annTax = b1 * TAX.br + (taxable - b1) * TAX.hr;
+  } else {
+    annTax = b1 * TAX.br + b2 * TAX.hr + (taxable - b1 - b2) * TAX.ar;
+  }
+  return Math.max(0, annTax / d);
+}
+
+function calcNI_EE(periodGross, freq) {
+  const d = periodDivisor(freq);
+  const pt = TAX.niPT / d, uel = TAX.niUEL / d;
+  if (periodGross <= pt) return 0;
+  if (periodGross <= uel) return (periodGross - pt) * TAX.niEEMain;
+  return (uel - pt) * TAX.niEEMain + (periodGross - uel) * TAX.niEEAdd;
+}
+
+function calcNI_ER(periodGross, freq) {
+  const d = periodDivisor(freq);
+  const st = TAX.niST / d;
+  return periodGross <= st ? 0 : (periodGross - st) * TAX.niER;
+}
+
+function calcPension(periodGross, freq, eeRate, erRate) {
+  const d = periodDivisor(freq);
+  const lower = TAX.pensionQELow / d;
+  const upper = TAX.pensionQEHigh / d;
+  const qe = Math.max(0, Math.min(periodGross, upper) - lower);
+  return { ee: qe * eeRate, er: qe * erRate, qe };
+}
+
+function calcPeriod(gross, freq, opts) {
+  opts = opts || {};
+  const eeRate = opts.pensionEE || 0.05;
+  const erRate = opts.pensionER || 0.03;
+  const salSac = opts.salSac !== false;
+  const pension = calcPension(gross, freq, eeRate, erRate);
+  // Salary sacrifice: deducted BEFORE PAYE/NI
+  const taxableGross = salSac ? gross - pension.ee : gross;
+  const paye    = calcPAYE(taxableGross, freq, opts.taxCode || '1257L');
+  const niEE    = calcNI_EE(taxableGross, freq);
+  const niER    = calcNI_ER(taxableGross, freq);
+  const net     = taxableGross - paye - niEE;
+  return { gross, taxableGross, paye, niEE, niER,
+           pensionEE: pension.ee, pensionER: pension.er, pensionQE: pension.qe,
+           net, totalCost: gross + niER + pension.er };
+}
+
+// ─── FORMATTERS ───
+function fmt(n) {
+  return '£' + Math.abs(+n || 0).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
+function fmtN(n, dp) { return (+n||0).toFixed(dp === undefined ? 2 : dp); }
+
+// ═══════════════════════════════════════════════════════════════
+// DATA STORE — edit EMPLOYEES and RUN_HOURS to update everything
+// ═══════════════════════════════════════════════════════════════
+
+const EMPLOYEES = [
+  { id:'E001', name:'Emma Walsh',     ni:'AB123400A', dept:'Front of house', site:'Site A', payType:'hourly', rate:13.85, freq:'weekly',  taxCode:'1257L', niCat:'A', pensionEE:0.05, pensionER:0.03, salSac:true,  status:'active', startDate:'6 Jan 2023' },
+  { id:'E002', name:'Oliver Brown',   ni:'CD234500B', dept:'Kitchen',         site:'Site A', payType:'hourly', rate:13.85, freq:'weekly',  taxCode:'1257L', niCat:'A', pensionEE:0.05, pensionER:0.03, salSac:true,  status:'active', startDate:'12 Mar 2022' },
+  { id:'E003', name:'Sarah Mitchell', ni:'EF345600C', dept:'Management',      site:'Site A', payType:'salary', rate:32000, freq:'monthly', taxCode:'1257L', niCat:'A', pensionEE:0.05, pensionER:0.03, salSac:false, status:'smp',    startDate:'1 Sep 2020' },
+  { id:'E004', name:'Priya Sharma',   ni:'GH456700D', dept:'Front of house', site:'Site B', payType:'hourly', rate:12.21, freq:'weekly',  taxCode:'1100L', niCat:'A', pensionEE:0.05, pensionER:0.03, salSac:true,  status:'active', startDate:'3 Jun 2023' },
+  { id:'E005', name:'Daniel Park',    ni:'IJ567800E', dept:'Kitchen',         site:'Site B', payType:'hourly', rate:13.85, freq:'weekly',  taxCode:'1257L', niCat:'A', pensionEE:0.05, pensionER:0.03, salSac:true,  status:'spp',    startDate:'18 Jan 2024' },
+];
+
+// Hours for current run W13 (null = statutory / salary)
+const RUN_HOURS = { E001:40, E002:68, E003:null, E004:37.5, E005:null };
+
+// Prior periods YTD (edit to change pay history)
+const HISTORY = [
+  { label:'W12 Mar 2026', h:{ E001:37.5, E002:37.5, E004:35.0, E005:37.5 } },
+  { label:'W11 Mar 2026', h:{ E001:40,   E002:40,   E004:37.5, E005:37.5 } },
+  { label:'W10 Feb 2026', h:{ E001:40,   E002:40,   E004:37.5, E005:37.5 } },
+  { label:'W9  Feb 2026', h:{ E001:38,   E002:38,   E004:37.5, E005:0    } },
+  { label:'W8  Feb 2026', h:{ E001:40,   E002:40,   E004:37.5, E005:0    } },
+  { label:'W7  Jan 2026', h:{ E001:37.5, E002:37.5, E004:37.5, E005:37.5 } },
+];
+
+// ─── DERIVED CALCULATIONS ───
+function grossForEmp(emp, hours) {
+  if (emp.status === 'smp') return TAX.smpFlat;
+  if (emp.status === 'spp') return TAX.sppFlat;
+  if (emp.status === 'unpaid') return 0;
+  if (emp.payType === 'salary') return emp.rate / periodDivisor(emp.freq);
+  return (hours || 0) * emp.rate;
+}
+
+function periodCalc(emp, hours) {
+  const gross = grossForEmp(emp, hours);
+  return calcPeriod(gross, emp.freq, { pensionEE:emp.pensionEE, pensionER:emp.pensionER, salSac:emp.salSac, taxCode:emp.taxCode });
+}
+
+function empYTD(empId) {
+  const emp = EMPLOYEES.find(e => e.id === empId);
+  const allPeriods = [{ label:'W13 Mar 2026 (current)', h:{ [empId]: RUN_HOURS[empId] } }, ...HISTORY];
+  let ytd = { gross:0, paye:0, niEE:0, niER:0, pensionEE:0, pensionER:0, net:0 };
+  allPeriods.forEach(p => {
+    if (emp.freq === 'monthly' && p.label !== 'W13 Mar 2026 (current)') return;
+    const hrs = p.h[empId];
+    if (hrs === undefined) return;
+    const r = periodCalc(emp, hrs);
+    ytd.gross += r.gross; ytd.paye += r.paye; ytd.niEE += r.niEE;
+    ytd.niER += r.niER; ytd.pensionEE += r.pensionEE; ytd.pensionER += r.pensionER; ytd.net += r.net;
+  });
+  return ytd;
+}
+
+function runTotals() {
+  let t = { gross:0, paye:0, niEE:0, niER:0, pensionEE:0, pensionER:0, net:0, totalCost:0, count:0 };
+  EMPLOYEES.forEach(emp => {
+    if (emp.status === 'inactive') return;
+    const r = periodCalc(emp, RUN_HOURS[emp.id]);
+    t.gross += r.gross; t.paye += r.paye; t.niEE += r.niEE;
+    t.niER += r.niER; t.pensionEE += r.pensionEE; t.pensionER += r.pensionER;
+    t.net += r.net; t.totalCost += r.totalCost; t.count++;
+  });
+  return t;
+}
+
+// ═══════════════════════════════════════════════════════════════
+// RENDER FUNCTIONS
+// ═══════════════════════════════════════════════════════════════
+
+function renderRunCard() {
+  const t = runTotals();
+  const cells = document.querySelectorAll('#run-card-metrics span[data-run]');
+  cells.forEach(el => {
+    const k = el.dataset.run;
+    if (k === 'count')  el.textContent = t.count;
+    if (k === 'gross')  el.textContent = fmt(t.gross);
+    if (k === 'paye')   el.textContent = fmt(t.paye);
+    if (k === 'ni')     el.textContent = fmt(t.niEE + t.niER);
+    if (k === 'net')    el.textContent = fmt(t.net);
+  });
+  // Modal metrics
+  const mm = document.querySelectorAll('#modal-run-detail .metric-value');
+  if (mm[0]) mm[0].textContent = fmt(t.gross);
+  if (mm[1]) mm[1].textContent = fmt(t.net);
+  if (mm[2]) mm[2].textContent = fmt(t.paye + t.niEE + t.niER);
+  // Approve modal
+  const am = document.querySelectorAll('#modal-run-approve .info-value.mono');
+  if (am[0]) am[0].textContent = fmt(t.gross);
+  if (am[1]) am[1].textContent = fmt(t.net);
+  if (am[2]) am[2].textContent = fmt(t.paye);
+  if (am[3]) am[3].textContent = fmt(t.niEE + t.niER);
+  // BACS panel
+  const bacsTotal = document.getElementById('bacs-net-total');
+  if (bacsTotal) bacsTotal.textContent = fmt(t.net);
+  const bacsCount = document.getElementById('bacs-emp-count');
+  if (bacsCount) bacsCount.textContent = t.count + ' records';
+}
+
+function renderRunDetailTable() {
+  const tbody = document.getElementById('run-detail-tbody');
+  if (!tbody) return;
+  tbody.innerHTML = '';
+  EMPLOYEES.forEach(emp => {
+    const hrs = RUN_HOURS[emp.id];
+    const r = periodCalc(emp, hrs);
+    const hrsDisplay = hrs !== null && hrs !== undefined ? fmtN(hrs,1) : emp.status === 'smp' ? 'SMP' : emp.status === 'spp' ? 'SPP' : '—';
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td><div class="font-600">${emp.name}</div><div class="text-xs mono text-hint">${emp.ni}</div></td>
+      <td>${hrsDisplay}</td>
+      <td class="td-num">${fmt(r.gross)}</td>
+      <td class="td-num">${fmt(r.paye)}</td>
+      <td class="td-num">${fmt(r.niEE)}</td>
+      <td class="td-num" style="color:var(--text2)">${fmt(r.niER)}</td>
+      <td class="td-num" style="color:var(--success-text)">${fmt(r.pensionEE)}</td>
+      <td class="td-num" style="color:var(--teal-text)">${fmt(r.pensionER)}</td>
+      <td class="td-num font-600">${fmt(r.net)}</td>`;
+    tbody.appendChild(tr);
+  });
+  const t = runTotals();
+  const tr = document.createElement('tr');
+  tr.style.borderTop = '2px solid var(--border2)';
+  tr.style.background = 'var(--surface2)';
+  tr.innerHTML = `
+    <td class="font-600" colspan="2">Totals (${EMPLOYEES.length} shown + ${84-EMPLOYEES.length} more)</td>
+    <td class="td-num font-600">${fmt(t.gross)}</td>
+    <td class="td-num font-600">${fmt(t.paye)}</td>
+    <td class="td-num font-600">${fmt(t.niEE)}</td>
+    <td class="td-num font-600" style="color:var(--text2)">${fmt(t.niER)}</td>
+    <td class="td-num font-600" style="color:var(--success-text)">${fmt(t.pensionEE)}</td>
+    <td class="td-num font-600" style="color:var(--teal-text)">${fmt(t.pensionER)}</td>
+    <td class="td-num font-600">${fmt(t.net)}</td>`;
+  tbody.appendChild(tr);
+}
+
+function renderBacsTable() {
+  const tbody = document.getElementById('bacs-detail-tbody');
+  if (!tbody) return;
+  tbody.innerHTML = '';
+  EMPLOYEES.slice(0, 3).forEach((emp, i) => {
+    const r = periodCalc(emp, RUN_HOURS[emp.id]);
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${emp.name}</td>
+      <td class="mono">20-00-00</td>
+      <td class="mono">●●●●●●${(89+i).toString().slice(-2)}</td>
+      <td class="td-num font-600">${fmt(r.net)}</td>
+      <td class="mono text-xs td-muted">COFFEECO/W13/${80+i}</td>`;
+    tbody.appendChild(tr);
+  });
+  const tr = document.createElement('tr');
+  tr.innerHTML = `<td colspan="5" class="text-xs td-muted" style="text-align:center;padding:8px 12px">+ ${84 - 3} more records</td>`;
+  tbody.appendChild(tr);
+}
+
+function renderHoursTable() {
+  const tbody = document.getElementById('hours-tbody');
+  if (!tbody) return;
+  tbody.innerHTML = '';
+  EMPLOYEES.forEach(emp => {
+    if (emp.status === 'smp' || emp.status === 'spp' || emp.status === 'unpaid') {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `<td><div class="font-600">${emp.name}</div></td><td>${emp.dept}</td><td class="td-num td-muted">—</td><td class="td-num td-muted">—</td><td class="td-num td-muted">—</td><td><span class="badge ${emp.status==='smp'?'badge-purple':'badge-info'}">${emp.status.toUpperCase()}</span></td><td><button class="btn btn-xs" disabled>Edit</button></td>`;
+      tbody.appendChild(tr);
+      return;
+    }
+    const contracted = 37.5;
+    const entered = RUN_HOURS[emp.id] || 37.5;
+    const diff = entered - contracted;
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td><div class="font-600">${emp.name}</div></td>
+      <td>${emp.dept}</td>
+      <td class="td-num">${fmtN(contracted,1)}</td>
+      <td class="td-num ${diff > 10 ? 'metric-down' : ''}" style="${diff > 10 ? 'font-weight:700' : ''}">${fmtN(entered,1)}</td>
+      <td class="td-num ${diff > 0 ? 'metric-up' : diff < 0 ? 'metric-down' : 'td-muted'}">${diff >= 0 ? '+' : ''}${fmtN(diff,1)}</td>
+      <td>${diff > 10 ? '<span class="badge badge-warning">Override logged</span>' : diff > 0 ? '<span class="text-xs text-hint">Cover shift</span>' : '—'}</td>
+      <td><button class="btn btn-xs" onclick="showModal('modal-add-hours')">Edit</button></td>`;
+    tbody.appendChild(tr);
+  });
+  const tr = document.createElement('tr');
+  tr.innerHTML = `<td colspan="7" class="text-xs td-muted" style="text-align:center;padding:12px">+ 79 more employees</td>`;
+  tbody.appendChild(tr);
+}
+
+function renderEmployeesTable() {
+  const tbody = document.getElementById('employees-tbody');
+  if (!tbody) return;
+  tbody.innerHTML = '';
+  EMPLOYEES.forEach(emp => {
+    const statusBadge = emp.status === 'active' ? '<span class="badge badge-success">Active</span>' :
+                        emp.status === 'smp'    ? '<span class="badge badge-purple">On SMP</span>' :
+                        emp.status === 'spp'    ? '<span class="badge badge-info">On SPP</span>' :
+                                                  '<span class="badge badge-neutral">' + emp.status + '</span>';
+    const rateDisplay = emp.payType === 'hourly' ? fmt(emp.rate) + '/hr' : '£' + emp.rate.toLocaleString() + '/yr';
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td><div class="font-600">${emp.name}</div><div class="text-xs mono text-hint">${emp.ni}</div></td>
+      <td>${emp.dept}</td>
+      <td><span class="tag">${emp.payType === 'hourly' ? 'Hourly' : 'Salary'}</span></td>
+      <td class="td-num">${rateDisplay}</td>
+      <td class="mono td-muted">${emp.taxCode}</td>
+      <td class="td-muted">${emp.niCat}</td>
+      <td>${statusBadge}</td>
+      <td class="td-action"><button class="btn btn-xs" onclick="openEmpProfile('${emp.id}')">View</button></td>`;
+    tbody.appendChild(tr);
+  });
+  const tr = document.createElement('tr');
+  tr.innerHTML = `<td colspan="8" class="text-xs td-muted" style="text-align:center;padding:12px">+ 79 more employees</td>`;
+  tbody.appendChild(tr);
+}
+
+let currentEmpId = 'E001';
+
+function renderPayHistory(empId) {
+  const emp = EMPLOYEES.find(e => e.id === empId) || EMPLOYEES[0];
+  const ytd = empYTD(empId);
+  // YTD metric cards
+  const m = document.querySelectorAll('#emp-ytd .metric-value');
+  if (m[0]) m[0].textContent = fmt(ytd.gross);
+  if (m[1]) m[1].textContent = fmt(ytd.paye);
+  if (m[2]) m[2].textContent = fmt(ytd.niEE);
+  if (m[3]) m[3].textContent = fmt(ytd.net);
+  // Pay history table
+  const tbody = document.getElementById('pay-history-tbody');
+  if (!tbody) return;
+  tbody.innerHTML = '';
+  const allPeriods = [{ label:'W13 Mar 2026', h:{ [empId]: RUN_HOURS[empId] }, current:true }, ...HISTORY.map(h => ({...h, current:false}))];
+  allPeriods.forEach(period => {
+    const hrs = period.h[empId];
+    if (hrs === undefined) return;
+    if (emp.freq === 'monthly' && !period.current) return; // monthly: only show current
+    const r = periodCalc(emp, hrs);
+    const hrsDisplay = hrs !== null ? fmtN(hrs, 1) : emp.status === 'smp' ? 'SMP' : emp.status === 'spp' ? 'SPP' : '—';
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${period.label}${period.current ? ' <span class="badge badge-warning" style="font-size:10px">Current</span>' : ''}</td>
+      <td class="td-num">${hrsDisplay}</td>
+      <td class="td-num">${fmt(r.gross)}</td>
+      <td class="td-num">${fmt(r.paye)}</td>
+      <td class="td-num">${fmt(r.niEE)}</td>
+      <td class="td-num" style="color:var(--text2)">${fmt(r.niER)}</td>
+      <td class="td-num" style="color:var(--success-text)">${fmt(r.pensionEE)}</td>
+      <td class="td-num" style="color:var(--teal-text)">${fmt(r.pensionER)}</td>
+      <td class="td-num font-600">${fmt(r.net)}</td>
+      <td><button class="btn btn-xs">Payslip</button></td>`;
+    tbody.appendChild(tr);
+  });
+  // YTD totals row
+  const totals = document.createElement('tr');
+  totals.style.background = 'var(--surface2)';
+  totals.style.borderTop = '2px solid var(--border2)';
+  totals.innerHTML = `
+    <td class="font-600" colspan="2">Year-to-date total</td>
+    <td class="td-num font-600">${fmt(ytd.gross)}</td>
+    <td class="td-num font-600">${fmt(ytd.paye)}</td>
+    <td class="td-num font-600">${fmt(ytd.niEE)}</td>
+    <td class="td-num font-600" style="color:var(--text2)">${fmt(ytd.niER)}</td>
+    <td class="td-num font-600" style="color:var(--success-text)">${fmt(ytd.pensionEE)}</td>
+    <td class="td-num font-600" style="color:var(--teal-text)">${fmt(ytd.pensionER)}</td>
+    <td class="td-num font-600">${fmt(ytd.net)}</td>
+    <td></td>`;
+  document.getElementById('pay-history-tbody').appendChild(totals);
+}
+
+function renderPensionTab(empId) {
+  const emp = EMPLOYEES.find(e => e.id === empId) || EMPLOYEES[0];
+  const ytd = empYTD(empId);
+  // YTD metric cards
+  const m = document.querySelectorAll('#emp-pension .metric-value');
+  if (m[0]) m[0].textContent = fmt(ytd.pensionEE);
+  if (m[1]) m[1].textContent = fmt(ytd.pensionER);
+  if (m[2]) m[2].textContent = fmt(ytd.pensionEE + ytd.pensionER);
+  // Rate labels
+  const eeRateEl = document.getElementById('pension-ee-rate');
+  const erRateEl = document.getElementById('pension-er-rate');
+  if (eeRateEl) eeRateEl.textContent = (emp.pensionEE*100).toFixed(0) + '% ' + (emp.salSac ? '(salary sacrifice)' : '(relief at source)');
+  if (erRateEl) erRateEl.textContent = (emp.pensionER*100).toFixed(0) + '%';
+  // Pension history table
+  const tbody = document.getElementById('pension-history-tbody');
+  if (!tbody) return;
+  tbody.innerHTML = '';
+  const allPeriods = [{ label:'W13 Mar 2026', h:{ [empId]: RUN_HOURS[empId] }, current:true }, ...HISTORY.map(h => ({...h, current:false}))];
+  allPeriods.forEach(period => {
+    const hrs = period.h[empId];
+    if (hrs === undefined) return;
+    if (emp.freq === 'monthly' && !period.current) return;
+    const r = periodCalc(emp, hrs);
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${period.label}${period.current ? ' <span class="badge badge-warning" style="font-size:10px">Current</span>' : ''}</td>
+      <td class="td-num">${fmt(r.gross)}</td>
+      <td class="td-num td-muted">${fmt(r.pensionQE)}</td>
+      <td class="td-num" style="color:var(--success-text);font-weight:600">${fmt(r.pensionEE)}</td>
+      <td class="td-num" style="color:var(--teal-text);font-weight:600">${fmt(r.pensionER)}</td>
+      <td class="td-num font-600">${fmt(r.pensionEE + r.pensionER)}</td>`;
+    tbody.appendChild(tr);
+  });
+  const totals = document.createElement('tr');
+  totals.style.background = 'var(--surface2)';
+  totals.style.borderTop = '2px solid var(--border2)';
+  totals.innerHTML = `
+    <td class="font-600">Year-to-date total</td>
+    <td class="td-num font-600">${fmt(ytd.gross)}</td>
+    <td></td>
+    <td class="td-num font-600" style="color:var(--success-text)">${fmt(ytd.pensionEE)}</td>
+    <td class="td-num font-600" style="color:var(--teal-text)">${fmt(ytd.pensionER)}</td>
+    <td class="td-num font-600">${fmt(ytd.pensionEE+ytd.pensionER)}</td>`;
+  tbody.appendChild(totals);
+}
+
+function openEmpProfile(empId) {
+  currentEmpId = empId;
+  const emp = EMPLOYEES.find(e => e.id === empId) || EMPLOYEES[0];
+  const nameEl = document.querySelector('#screen-employee-profile .page-title');
+  const subEl  = document.querySelector('#screen-employee-profile .page-sub');
+  const avEl   = document.querySelector('#screen-employee-profile .page-header .flex-center > div');
+  if (nameEl) nameEl.textContent = emp.name;
+  if (subEl)  subEl.innerHTML = emp.dept + ' · ' + emp.site + ' · <span class="mono" style="font-size:11px">' + emp.ni + '</span>';
+  if (avEl)   avEl.textContent = emp.name.split(' ').map(w=>w[0]).join('');
+  // Update personal tab static fields
+  const pd = document.getElementById('emp-personal-details');
+  if (pd) {
+    pd.querySelector('[data-f="payType"]').textContent  = (emp.payType === 'hourly' ? 'Hourly · ' : 'Salary · ') + (emp.payType === 'hourly' ? fmt(emp.rate) + '/hr' : '£' + emp.rate.toLocaleString() + '/yr');
+    pd.querySelector('[data-f="freq"]').textContent    = emp.freq.charAt(0).toUpperCase() + emp.freq.slice(1);
+    pd.querySelector('[data-f="taxCode"]').textContent = emp.taxCode;
+    pd.querySelector('[data-f="niCat"]').textContent   = emp.niCat;
+    pd.querySelector('[data-f="start"]').textContent   = emp.startDate;
+    pd.querySelector('[data-f="dept"]').textContent    = emp.dept + ' — ' + emp.site;
+  }
+  renderPayHistory(empId);
+  renderPensionTab(empId);
+  nav('employee-profile', null, 'org');
+  empTab('personal', document.querySelector('#emp-tabs .tab'));
+}
+
+function initAll() {
+  renderRunCard();
+  renderRunDetailTable();
+  renderHoursTable();
+  renderEmployeesTable();
+  renderBacsTable();
+  renderPayHistory('E001');
+  renderPensionTab('E001');
+}
+
+// ═══════════════════════════════════════════════════════════════
+// UI / NAVIGATION
+// ═══════════════════════════════════════════════════════════════
+
+let currentOrgName = 'The Coffee Co.';
+let currentNavContext = 'bureau';
+
 function nav(screenId, navEl, context) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('visible'));
   const el = document.getElementById('screen-' + screenId);
   if (el) el.classList.add('visible');
-
-  // Update active nav item
-  if (navEl) {
-    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-    navEl.classList.add('active');
-  }
-
-  // Update breadcrumb
+  if (navEl) { document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active')); navEl.classList.add('active'); }
   const titles = {
     'bureau-dashboard':'Bureau Dashboard','all-runs':'All pay runs','organisations':'Organisations',
     'user-management':'User management','global-settings':'Global settings','org-onboarding':'Onboard employer',
     'org-dashboard':'Dashboard','payroll-runs':'Payroll runs','hours':'Hours & amendments',
-    'employees':'Employees','employee-profile':'Emma Walsh','onboarding':'Onboarding',
+    'employees':'Employees','employee-profile':'Employee profile','onboarding':'Onboarding',
     'life-events':'Life events','payslips':'Payslips & P60s','pay-elements':'Pay elements',
     'reports':'Reports','org-settings':'Org settings'
   };
-
   if (context === 'org') {
-    document.getElementById('crumb-current').innerHTML =
-      `<span class="crumb" onclick="exitOrg()" style="cursor:pointer">${currentOrgName}</span> <span class="crumb-sep">›</span> <span class="crumb active">${titles[screenId] || screenId}</span>`;
+    document.getElementById('crumb-current').innerHTML = `<span class="crumb" onclick="exitOrg()" style="cursor:pointer">${currentOrgName}</span> <span class="crumb-sep">›</span> <span class="crumb active">${titles[screenId]||screenId}</span>`;
   } else {
-    document.getElementById('crumb-current').innerHTML =
-      `<span class="crumb active">${titles[screenId] || screenId}</span>`;
+    document.getElementById('crumb-current').innerHTML = `<span class="crumb active">${titles[screenId]||screenId}</span>`;
   }
+  if (screenId==='payroll-runs') { renderRunCard(); }
+  if (screenId==='hours') { renderHoursTable(); }
+  if (screenId==='employees') { renderEmployeesTable(); }
+  if (screenId==='employee-profile') { renderPayHistory(currentEmpId); renderPensionTab(currentEmpId); }
 }
 
 function openOrg(orgName, screen) {
   currentOrgName = orgName;
   currentNavContext = 'org';
-
-  // Switch sidebar
   document.getElementById('nav-bureau').style.display = 'none';
   document.getElementById('nav-org').style.display = 'block';
   document.getElementById('sidebar-mode-label').textContent = orgName;
-
-  // Update org-specific labels
-  const el = document.getElementById('org-dash-title');
-  if (el) el.textContent = orgName + ' — Dashboard';
-  const sub = document.getElementById('org-dash-sub');
-  if (sub) sub.textContent = (orgName === 'The Coffee Co.' ? '120/AB12345 · Weekly + Monthly' : orgName + ' · PAYE') + ' · RTI live';
-  const prsub = document.getElementById('pr-sub');
-  if (prsub) prsub.textContent = orgName + ' · All frequencies';
-
-  // Navigate to screen
-  const screenMap = {
-    'screen-org-dashboard':'org-dashboard',
-    'screen-payroll-runs':'payroll-runs',
-    'screen-hours':'hours',
-    'screen-onboarding':'onboarding'
-  };
-  nav(screenMap[screen] || 'org-dashboard', null, 'org');
-
-  // Activate first org nav item
-  const firstOrgNav = document.querySelector('#nav-org .nav-item');
-  if (firstOrgNav) { document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active')); firstOrgNav.classList.add('active'); }
+  const el = document.getElementById('org-dash-title'); if (el) el.textContent = orgName + ' — Dashboard';
+  const sub = document.getElementById('org-dash-sub'); if (sub) sub.textContent = (orgName==='The Coffee Co.'?'120/AB12345 · Weekly + Monthly':orgName+' · PAYE')+' · RTI live';
+  const prsub = document.getElementById('pr-sub'); if (prsub) prsub.textContent = orgName+' · All frequencies';
+  const screenMap = { 'screen-org-dashboard':'org-dashboard','screen-payroll-runs':'payroll-runs','screen-hours':'hours','screen-onboarding':'onboarding' };
+  nav(screenMap[screen]||'org-dashboard', null, 'org');
+  const first = document.querySelector('#nav-org .nav-item');
+  if (first) { document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active')); first.classList.add('active'); }
 }
 
 function exitOrg() {
@@ -2009,231 +2415,118 @@ function exitOrg() {
   document.getElementById('nav-org').style.display = 'none';
   document.getElementById('sidebar-mode-label').textContent = 'Bureau Platform';
   nav('bureau-dashboard', null, 'bureau');
-  const firstBureauNav = document.querySelector('#nav-bureau .nav-item');
-  if (firstBureauNav) { document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active')); firstBureauNav.classList.add('active'); }
+  const first = document.querySelector('#nav-bureau .nav-item');
+  if (first) { document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active')); first.classList.add('active'); }
 }
 
-// ── ROLE SWITCHER ──
 function switchRole(role, btn) {
-  document.querySelectorAll('.role-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-
-  const names = {super:'James Ashworth',bureau:'Sarah Patel',org:'Donna Wright',processor:'Tom Baker'};
-  const roles = {super:'Super Admin',bureau:'Bureau Admin',org:'Org Admin',processor:'Processor'};
-  const initials = {super:'JA',bureau:'SP',org:'DW',processor:'TB'};
-
-  document.getElementById('user-name-sb').textContent = names[role];
-  document.getElementById('user-role-sb').textContent = roles[role];
-  document.getElementById('user-avatar-sb').textContent = initials[role];
-
-  // Role-based nav visibility
-  if (role === 'org' || role === 'processor') {
-    openOrg('The Coffee Co.', 'screen-org-dashboard');
-  } else {
-    exitOrg();
-  }
+  document.querySelectorAll('.role-btn').forEach(b=>b.classList.remove('active')); btn.classList.add('active');
+  const names={super:'James Ashworth',bureau:'Sarah Patel',org:'Donna Wright',processor:'Tom Baker'};
+  const roles={super:'Super Admin',bureau:'Bureau Admin',org:'Org Admin',processor:'Processor'};
+  const ini={super:'JA',bureau:'SP',org:'DW',processor:'TB'};
+  document.getElementById('user-name-sb').textContent=names[role];
+  document.getElementById('user-role-sb').textContent=roles[role];
+  document.getElementById('user-avatar-sb').textContent=ini[role];
+  if (role==='org'||role==='processor') { openOrg('The Coffee Co.','screen-org-dashboard'); } else { exitOrg(); }
 }
 
-// ── MODAL ──
-function showModal(id) { document.getElementById(id).style.display = 'flex'; }
-function closeModal(id, event) {
-  if (!event || event.target === document.getElementById(id)) {
-    document.getElementById(id).style.display = 'none';
-  }
+function showModal(id) { const e=document.getElementById(id); if(e) e.style.display='flex'; }
+function closeModal(id,event) {
+  if (!event||event.target===document.getElementById(id)) { const e=document.getElementById(id); if(e) e.style.display='none'; }
 }
-document.addEventListener('keydown', e => { if (e.key === 'Escape') document.querySelectorAll('.modal-overlay').forEach(m => m.style.display = 'none'); });
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') document.querySelectorAll('.modal-overlay').forEach(m=>m.style.display='none'); });
 
-// ── EMPLOYEE TABS ──
 function empTab(tab, el) {
-  document.querySelectorAll('.emp-tab-panel').forEach(p => p.classList.remove('visible'));
-  const target = document.getElementById('emp-' + tab);
-  if (target) target.classList.add('visible');
-  document.querySelectorAll('#emp-tabs .tab').forEach(t => t.classList.remove('active'));
-  if (el) el.classList.add('active');
+  document.querySelectorAll('.emp-tab-panel').forEach(p=>p.classList.remove('visible'));
+  const t=document.getElementById('emp-'+tab); if(t) t.classList.add('visible');
+  document.querySelectorAll('#emp-tabs .tab').forEach(t=>t.classList.remove('active'));
+  if(el) el.classList.add('active');
+  if(tab==='ytd') renderPayHistory(currentEmpId);
+  if(tab==='pension') renderPensionTab(currentEmpId);
 }
-
-// ── USER MANAGEMENT TABS ──
 function umTab(tab, el) {
-  ['hierarchy','users','create'].forEach(t => { const p = document.getElementById('um-'+t); if(p) p.style.display='none'; });
-  const target = document.getElementById('um-'+tab);
-  if (target) target.style.display = 'block';
-  document.querySelectorAll('#um-tabs .tab').forEach(t => t.classList.remove('active'));
-  if (el) el.classList.add('active');
+  ['hierarchy','users','create'].forEach(t=>{const p=document.getElementById('um-'+t);if(p)p.style.display='none';});
+  const t=document.getElementById('um-'+tab); if(t) t.style.display='block';
+  document.querySelectorAll('#um-tabs .tab').forEach(t=>t.classList.remove('active')); if(el) el.classList.add('active');
 }
-
-// ── PE LIB TABS ──
 function peLibTab(tab, el) {
-  document.getElementById('pe-global').style.display = tab === 'global' ? 'block' : 'none';
-  document.getElementById('pe-org').style.display = tab === 'org' ? 'block' : 'none';
-  document.querySelectorAll('#pe-tabs .tab').forEach(t => t.classList.remove('active'));
-  if (el) el.classList.add('active');
+  document.getElementById('pe-global').style.display=tab==='global'?'block':'none';
+  document.getElementById('pe-org').style.display=tab==='org'?'block':'none';
+  document.querySelectorAll('#pe-tabs .tab').forEach(t=>t.classList.remove('active')); if(el) el.classList.add('active');
 }
-
-// ── ORG SETTINGS TABS ──
 function osTab(tab, el) {
-  ['company','hmrc','schedules','users'].forEach(t => { const p = document.getElementById('os-'+t); if(p) p.style.display='none'; });
-  const target = document.getElementById('os-'+tab);
-  if (target) target.style.display = 'block';
-  document.querySelectorAll('#os-tabs .tab').forEach(t => t.classList.remove('active'));
-  if (el) el.classList.add('active');
+  ['company','hmrc','schedules','users'].forEach(t=>{const p=document.getElementById('os-'+t);if(p)p.style.display='none';});
+  const t=document.getElementById('os-'+tab); if(t) t.style.display='block';
+  document.querySelectorAll('#os-tabs .tab').forEach(t=>t.classList.remove('active')); if(el) el.classList.add('active');
 }
-
-// ── ONBOARDING WIZARD ──
 function wizN(step) {
-  document.getElementById('wiz-p'+step).style.display = 'none';
-  document.getElementById('wiz-p'+(step+1)).style.display = 'block';
-  const cur = document.getElementById('wiz-s'+step);
-  cur.className = 'step done'; cur.querySelector('.step-num').textContent = '✓';
-  const line = document.getElementById('wiz-l'+step);
-  if (line) line.classList.add('done');
-  const next = document.getElementById('wiz-s'+(step+1));
-  if (next) next.className = 'step active';
+  document.getElementById('wiz-p'+step).style.display='none';
+  document.getElementById('wiz-p'+(step+1)).style.display='block';
+  const c=document.getElementById('wiz-s'+step); c.className='step done'; c.querySelector('.step-num').textContent='✓';
+  const l=document.getElementById('wiz-l'+step); if(l) l.classList.add('done');
+  const n=document.getElementById('wiz-s'+(step+1)); if(n) n.className='step active';
 }
 function wizB(step) {
-  document.getElementById('wiz-p'+step).style.display = 'none';
-  document.getElementById('wiz-p'+(step-1)).style.display = 'block';
-  const cur = document.getElementById('wiz-s'+step);
-  cur.className = 'step pending'; cur.querySelector('.step-num').textContent = step;
-  const line = document.getElementById('wiz-l'+(step-1));
-  if (line) line.classList.remove('done');
-  const prev = document.getElementById('wiz-s'+(step-1));
-  if (prev) { prev.className = 'step active'; prev.querySelector('.step-num').textContent = step-1; }
+  document.getElementById('wiz-p'+step).style.display='none';
+  document.getElementById('wiz-p'+(step-1)).style.display='block';
+  const c=document.getElementById('wiz-s'+step); c.className='step pending'; c.querySelector('.step-num').textContent=step;
+  const l=document.getElementById('wiz-l'+(step-1)); if(l) l.classList.remove('done');
+  const p=document.getElementById('wiz-s'+(step-1)); if(p){p.className='step active';p.querySelector('.step-num').textContent=step-1;}
 }
 function activateWiz() {
-  document.getElementById('wiz-p5').style.display = 'none';
-  document.getElementById('wiz-complete').style.display = 'block';
-  const last = document.getElementById('wiz-s5');
-  last.className = 'step done'; last.querySelector('.step-num').textContent = '✓';
+  document.getElementById('wiz-p5').style.display='none';
+  document.getElementById('wiz-complete').style.display='block';
+  const l=document.getElementById('wiz-s5'); l.className='step done'; l.querySelector('.step-num').textContent='✓';
   document.getElementById('wiz-l4').classList.add('done');
 }
-
-// ── RTI TEST ──
-function testRTI() {
-  const r = document.getElementById('rti-result');
-  r.style.display = 'none';
-  setTimeout(() => { r.style.display = 'inline-flex'; }, 900);
-}
-function testRTI2() {
-  const r = document.getElementById('rti2-result');
-  r.textContent = '↻ Testing...';
-  r.className = 'badge badge-warning';
-  setTimeout(() => { r.textContent = '✓ Connected · verified just now'; r.className = 'badge badge-success'; }, 900);
-}
-
-// ── APPROVE RUN ──
+function testRTI() { const r=document.getElementById('rti-result'); r.style.display='none'; setTimeout(()=>{r.style.display='inline-flex';},900); }
+function testRTI2() { const r=document.getElementById('rti2-result'); r.textContent='↻ Testing...'; r.className='badge badge-warning'; setTimeout(()=>{r.textContent='✓ Connected · verified just now';r.className='badge badge-success';},900); }
 function approveRun() {
   closeModal('modal-run-approve');
-  // Show success state on run card
-  document.querySelectorAll('.run-card')[0].querySelector('.badge').className = 'badge badge-success';
-  document.querySelectorAll('.run-card')[0].querySelector('.badge').textContent = 'Approved — FPS submitted';
+  const b=document.querySelector('.run-card .badge-warning'); if(b){b.className='badge badge-success';b.textContent='Approved — FPS submitted';}
 }
-
-// ── ORG ACCESS FIELD ──
-function toggleOrgAccess() {
-  const role = document.getElementById('create-user-role').value;
-  const f = document.getElementById('org-access-field');
-  f.style.display = (role === 'org' || role === 'processor') ? 'flex' : 'none';
-}
-function toggleOrgAccess2() {
-  const role = document.getElementById('modal-role-sel').value;
-  const f = document.getElementById('modal-org-field');
-  f.style.display = (role === 'org' || role === 'processor') ? 'flex' : 'none';
-}
-
-// ── INITIAL NAV STATE ──
-document.querySelector('#nav-bureau .nav-item').classList.add('active');
-
-// ── BUREAU DASHBOARD FILTER ──
 function bdFilter(filter, el) {
-  document.querySelectorAll('.pill-tab').forEach(t => t.classList.remove('active'));
-  if (el) el.classList.add('active');
-  document.querySelectorAll('#bd-org-tbody tr.bd-row').forEach(row => {
-    if (filter === 'all') {
-      row.style.display = '';
-    } else if (filter === 'action') {
-      row.style.display = row.classList.contains('bd-row-action') ? '' : 'none';
-    } else if (filter === 'clear') {
-      row.style.display = row.classList.contains('bd-row-clear') ? '' : 'none';
-    }
+  document.querySelectorAll('.pill-tab').forEach(t=>t.classList.remove('active')); if(el) el.classList.add('active');
+  document.querySelectorAll('#bd-org-tbody tr.bd-row').forEach(row=>{
+    row.style.display = filter==='all'?'' : filter==='action'?(row.classList.contains('bd-row-action')?'':'none'):(row.classList.contains('bd-row-clear')?'':'none');
   });
 }
-
 function bdSearch(val) {
-  const q = val.toLowerCase();
-  document.querySelectorAll('#bd-org-tbody tr.bd-row').forEach(row => {
-    const text = row.textContent.toLowerCase();
-    row.style.display = (!q || text.includes(q)) ? '' : 'none';
-  });
+  const q=val.toLowerCase();
+  document.querySelectorAll('#bd-org-tbody tr.bd-row').forEach(row=>{row.style.display=(!q||row.textContent.toLowerCase().includes(q))?'':'none';});
 }
-
-// ── USER CREATION ROLE TOGGLE ──
-const roleHints = {
-  bureau: 'Bureau Admins can manage multiple organisations and create Org Admins & Processors.',
-  org: 'Org Admins can approve payroll and manage a single organisation.',
-  processor: 'Processors can initiate runs and enter hours but cannot approve payroll.'
-};
-const rolePerms = {
-  bureau: ['✓ Create Org Admins & Processors', '✓ Run & approve payroll', '✓ View all pay elements', '✗ Cannot create Global Pay Elements'],
-  org: ['✓ Approve payroll runs', '✓ Amend pay run', '✓ View org data', '✗ Cannot create pay elements', '✗ No financial summary'],
-  processor: ['✓ Initiate payroll runs', '✓ Enter hours & amendments', '✗ Cannot approve payroll', '✗ No financial data']
-};
+const roleHints={bureau:'Bureau Admins manage multiple organisations and can create Org Admins & Processors.',org:'Org Admins can approve payroll and manage a single organisation.',processor:'Processors can initiate runs and enter hours but cannot approve payroll.'};
+const rolePerms={bureau:['✓ Create Org Admins & Processors','✓ Run & approve payroll','✓ View all pay elements','✗ Cannot create Global Pay Elements'],org:['✓ Approve payroll runs','✓ Amend pay run','✓ View org data','✗ Cannot create pay elements'],processor:['✓ Initiate payroll runs','✓ Enter hours & amendments','✗ Cannot approve payroll','✗ No financial data access']};
 function toggleOrgAccess() {
-  const role = document.getElementById('create-user-role').value;
-  const orgField = document.getElementById('org-access-field');
-  const bureauField = document.getElementById('bureau-org-access');
-  const hint = document.getElementById('role-hint-text');
-  const permBox = document.getElementById('permission-preview');
-  const permContent = document.getElementById('perm-preview-content');
-
-  orgField.style.display = (role === 'org' || role === 'processor') ? 'flex' : 'none';
-  bureauField.style.display = role === 'bureau' ? 'block' : 'none';
-  
-  if (role && roleHints[role]) {
-    hint.textContent = roleHints[role];
-    hint.style.display = 'block';
-    permBox.style.display = 'block';
-    permContent.innerHTML = rolePerms[role].map(p => 
-      `<span class="perm-tag ${p.startsWith('✓') ? 'can' : 'cannot'}">${p}</span>`
-    ).join('');
-  } else {
-    hint.style.display = 'none';
-    permBox.style.display = 'none';
-  }
+  const role=document.getElementById('create-user-role').value;
+  document.getElementById('org-access-field').style.display=(role==='org'||role==='processor')?'flex':'none';
+  document.getElementById('bureau-org-access').style.display=role==='bureau'?'block':'none';
+  const hint=document.getElementById('role-hint-text');
+  const permBox=document.getElementById('permission-preview');
+  const permContent=document.getElementById('perm-preview-content');
+  if(role&&roleHints[role]){hint.textContent=roleHints[role];hint.style.display='block';permBox.style.display='block';permContent.innerHTML=rolePerms[role].map(p=>`<span class="perm-tag ${p.startsWith('✓')?'can':'cannot'}">${p}</span>`).join('');}
+  else{hint.style.display='none';permBox.style.display='none';}
 }
-function toggleOrgAccess2() {
-  const role = document.getElementById('modal-role-sel').value;
-  const f = document.getElementById('modal-org-field');
-  f.style.display = (role === 'org' || role === 'processor') ? 'flex' : 'none';
-}
+function toggleOrgAccess2() { const r=document.getElementById('modal-role-sel').value; document.getElementById('modal-org-field').style.display=(r==='org'||r==='processor')?'flex':'none'; }
 function submitCreateUser() {
-  const role = document.getElementById('create-user-role').value;
-  if (!role) { alert('Please select a role'); return; }
-  closeModal && closeModal('modal-create-user');
-  // Show success feedback
-  const card = document.querySelector('#um-create .card');
-  card.innerHTML = `<div style="text-align:center;padding:32px">
-    <div style="width:48px;height:48px;border-radius:50%;background:var(--success-bg);border:2px solid var(--success);display:flex;align-items:center;justify-content:center;font-size:22px;margin:0 auto 12px">✓</div>
-    <div class="page-title" style="font-size:16px;margin-bottom:8px">Invite sent!</div>
-    <div class="text-muted" style="margin-bottom:20px">The user will receive an email to set their password and access the platform.</div>
-    <button class="btn btn-primary" onclick="location.reload()">Create another user</button>
-  </div>`;
+  const role=document.getElementById('create-user-role').value; if(!role){alert('Please select a role');return;}
+  document.querySelector('#um-create .card').innerHTML=`<div style="text-align:center;padding:32px"><div style="width:48px;height:48px;border-radius:50%;background:var(--success-bg);border:2px solid var(--success);display:flex;align-items:center;justify-content:center;font-size:22px;margin:0 auto 12px">✓</div><div class="page-title" style="font-size:16px;margin-bottom:8px">Invite sent!</div><div class="text-muted" style="margin-bottom:20px">The user will receive an email to set their password.</div><button class="btn btn-primary" onclick="location.reload()">Create another user</button></div>`;
+}
+function updateReportStatus() {
+  const val=document.getElementById('report-run-sel').value;
+  const a=document.getElementById('report-alert-approved'); const ip=document.getElementById('report-alert-inprogress'); const b=document.getElementById('bacs-download-btn');
+  if(val==='inprogress'){a.style.display='none';ip.style.display='flex';if(b)b.disabled=true;}
+  else{a.style.display='flex';ip.style.display='none';if(b)b.disabled=false;}
 }
 
-// ── REPORT STATUS TOGGLE ──
-function updateReportStatus() {
-  const val = document.getElementById('report-run-sel').value;
-  const approved = document.getElementById('report-alert-approved');
-  const inprogress = document.getElementById('report-alert-inprogress');
-  const bacsBtn = document.getElementById('bacs-download-btn');
-  if (val === 'inprogress') {
-    approved.style.display = 'none';
-    inprogress.style.display = 'flex';
-    if (bacsBtn) bacsBtn.disabled = true;
-  } else {
-    approved.style.display = 'flex';
-    inprogress.style.display = 'none';
-    if (bacsBtn) bacsBtn.disabled = false;
-  }
+// ── BOOT ──
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelector('#nav-bureau .nav-item').classList.add('active');
+  initAll();
+});
+if (document.readyState !== 'loading') {
+  document.querySelector('#nav-bureau .nav-item').classList.add('active');
+  initAll();
 }
 </script>
 </body>
