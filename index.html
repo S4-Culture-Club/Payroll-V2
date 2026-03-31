@@ -404,9 +404,9 @@ tr:hover td{background:var(--surface2)}
         <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" stroke-width="2"/><circle cx="9" cy="7" r="4" stroke-width="2"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" stroke-width="2"/></svg>
         User management
       </div>
-      <div class="nav-item" onclick="nav('global-settings',this,'bureau')">
+      <div class="nav-item" onclick="nav('pay-element-library',this,'bureau')">
         <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3" stroke-width="2"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83" stroke-width="2" stroke-linecap="round"/></svg>
-        Global settings
+        Global pay elements
       </div>
     </div>
   </div>
@@ -936,28 +936,55 @@ tr:hover td{background:var(--surface2)}
       </div>
     </div>
 
-    <!-- ═══ GLOBAL SETTINGS ═══ -->
-    <div class="screen" id="screen-global-settings">
+    <!-- ═══ GLOBAL PAY ELEMENTS ═══ -->
+    <div class="screen" id="screen-pay-element-library">
       <div class="page-header">
-        <div><div class="page-title">Global settings</div><div class="page-sub">Platform-wide configuration · Super Admin only</div></div>
+        <div><div class="page-title">Global pay elements</div><div class="page-sub">Statutory elements &amp; HMRC rates · Super Admin managed · applies across all organisations</div></div>
       </div>
-      <div class="card">
-        <div class="card-title" style="margin-bottom:14px">Global pay elements</div>
-        <div class="table-wrap"><table>
-          <thead><tr><th>Name</th><th>Category</th><th>Type</th><th>Calculation</th><th>PAYE</th><th>NI</th><th>Pension</th></tr></thead>
-          <tbody>
-            <tr><td class="font-600">SMP</td><td><span class="badge badge-purple">Statutory</span></td><td><span class="pe-tag pe-add">Addition</span></td><td>90% AWE wks 1–6, then £184.03</td><td>✓</td><td>✓</td><td>✓</td></tr>
-            <tr><td class="font-600">SPP / SAP / ShPP</td><td><span class="badge badge-purple">Statutory</span></td><td><span class="pe-tag pe-add">Addition</span></td><td>£184.03/wk flat</td><td>✓</td><td>✓</td><td>✓</td></tr>
-            <tr><td class="font-600">SSP</td><td><span class="badge badge-purple">Statutory</span></td><td><span class="pe-tag pe-add">Addition</span></td><td>£116.75/wk (qualifying days)</td><td>✓</td><td>✓</td><td>—</td></tr>
-            <tr><td class="font-600">Student loan Plan 1</td><td><span class="badge badge-neutral">HMRC</span></td><td><span class="pe-tag pe-ded">Deduction</span></td><td>9% above £24,990</td><td>—</td><td>—</td><td>—</td></tr>
-            <tr><td class="font-600">Student loan Plan 2</td><td><span class="badge badge-neutral">HMRC</span></td><td><span class="pe-tag pe-ded">Deduction</span></td><td>9% above £27,295</td><td>—</td><td>—</td><td>—</td></tr>
-            <tr><td class="font-600">Postgraduate loan</td><td><span class="badge badge-neutral">HMRC</span></td><td><span class="pe-tag pe-ded">Deduction</span></td><td>6% above £21,000</td><td>—</td><td>—</td><td>—</td></tr>
-          </tbody>
-        </table></div>
+      <div class="tabs" id="pel-tabs">
+        <div class="tab active" onclick="pelTab('elements',this)">Statutory elements</div>
+        <div class="tab" onclick="pelTab('rates',this)">HMRC statutory rates</div>
+      </div>
+      <div id="pel-elements">
+        <div class="card"><div class="card-title" style="margin-bottom:14px">Global pay elements</div>
+          <div class="table-wrap"><table>
+            <thead><tr><th>Name</th><th>Category</th><th>Type</th><th>Calculation</th><th>PAYE</th><th>NI</th><th>Pension</th></tr></thead>
+            <tbody>
+              <tr><td class="font-600">SMP</td><td><span class="badge badge-purple">Statutory</span></td><td><span class="pe-tag pe-add">Addition</span></td><td>90% AWE wks 1–6, then £184.03</td><td>✓</td><td>✓</td><td>✓</td></tr>
+              <tr><td class="font-600">SPP / SAP / ShPP</td><td><span class="badge badge-purple">Statutory</span></td><td><span class="pe-tag pe-add">Addition</span></td><td>£184.03/wk flat</td><td>✓</td><td>✓</td><td>✓</td></tr>
+              <tr><td class="font-600">SSP</td><td><span class="badge badge-purple">Statutory</span></td><td><span class="pe-tag pe-add">Addition</span></td><td>£116.75/wk (qualifying days)</td><td>✓</td><td>✓</td><td>—</td></tr>
+              <tr><td class="font-600">Student loan Plan 1</td><td><span class="badge badge-neutral">HMRC</span></td><td><span class="pe-tag pe-ded">Deduction</span></td><td>9% above £24,990</td><td>—</td><td>—</td><td>—</td></tr>
+              <tr><td class="font-600">Student loan Plan 2</td><td><span class="badge badge-neutral">HMRC</span></td><td><span class="pe-tag pe-ded">Deduction</span></td><td>9% above £27,295</td><td>—</td><td>—</td><td>—</td></tr>
+              <tr><td class="font-600">Student loan Plan 4</td><td><span class="badge badge-neutral">HMRC</span></td><td><span class="pe-tag pe-ded">Deduction</span></td><td>9% above £31,395</td><td>—</td><td>—</td><td>—</td></tr>
+              <tr><td class="font-600">Postgraduate loan</td><td><span class="badge badge-neutral">HMRC</span></td><td><span class="pe-tag pe-ded">Deduction</span></td><td>6% above £21,000</td><td>—</td><td>—</td><td>—</td></tr>
+            </tbody>
+          </table></div>
+        </div>
+      </div>
+      <div id="pel-rates" style="display:none">
+        <div class="alert alert-warning" style="margin-bottom:16px"><div class="alert-icon">⚠</div><div><span class="alert-title">Changes apply immediately across all organisations.</span> Always update on 6 April (PAYE/NI/Pension) or 1 April (NMW). Historical runs are not recalculated.</div></div>
+        <div class="card"><div class="card-header"><div class="card-title">HMRC statutory rates — 2025/26</div><button class="btn btn-sm btn-primary">+ Add rate</button></div>
+          <div class="table-wrap"><table>
+            <thead><tr><th>Rate</th><th>Category</th><th>2025/26 value</th><th>Effective</th><th>Source</th><th></th></tr></thead>
+            <tbody>
+              <tr><td class="font-600">SMP / SPP / ShPP / SAP flat rate</td><td><span class="badge badge-purple">Statutory pay</span></td><td class="mono td-num">£184.03/wk</td><td>6 Apr 2025</td><td class="td-muted text-sm">Lower of flat rate or 90% AWE</td><td><button class="btn btn-xs">Edit</button></td></tr>
+              <tr><td class="font-600">SSP weekly rate</td><td><span class="badge badge-purple">Statutory pay</span></td><td class="mono td-num">£116.75/wk</td><td>6 Apr 2025</td><td class="td-muted text-sm">Qualifying days basis</td><td><button class="btn btn-xs">Edit</button></td></tr>
+              <tr><td class="font-600">National Living Wage (21+)</td><td><span class="badge badge-neutral">NMW</span></td><td class="mono td-num">£12.21/hr</td><td>1 Apr 2025</td><td class="td-muted text-sm">Triggers payroll warning if below</td><td><button class="btn btn-xs">Edit</button></td></tr>
+              <tr><td class="font-600">NMW (18–20)</td><td><span class="badge badge-neutral">NMW</span></td><td class="mono td-num">£10.00/hr</td><td>1 Apr 2025</td><td class="td-muted text-sm"></td><td><button class="btn btn-xs">Edit</button></td></tr>
+              <tr><td class="font-600">NMW (under 18 / apprentice)</td><td><span class="badge badge-neutral">NMW</span></td><td class="mono td-num">£7.55/hr</td><td>1 Apr 2025</td><td class="td-muted text-sm"></td><td><button class="btn btn-xs">Edit</button></td></tr>
+              <tr><td class="font-600">Personal allowance</td><td><span class="badge badge-info">PAYE</span></td><td class="mono td-num">£12,570</td><td>6 Apr 2025</td><td class="td-muted text-sm">Code 1257L → tax-free amount</td><td><button class="btn btn-xs">Edit</button></td></tr>
+              <tr><td class="font-600">Basic rate band ceiling</td><td><span class="badge badge-info">PAYE</span></td><td class="mono td-num">£50,270 · 20%</td><td>6 Apr 2025</td><td></td><td><button class="btn btn-xs">Edit</button></td></tr>
+              <tr><td class="font-600">Higher rate band ceiling</td><td><span class="badge badge-info">PAYE</span></td><td class="mono td-num">£125,140 · 40%</td><td>6 Apr 2025</td><td></td><td><button class="btn btn-xs">Edit</button></td></tr>
+              <tr><td class="font-600">EE NI primary threshold</td><td><span class="badge badge-success">NI</span></td><td class="mono td-num">£12,570/yr · 8%</td><td>6 Apr 2025</td><td class="td-muted text-sm">2% above UEL (£50,270)</td><td><button class="btn btn-xs">Edit</button></td></tr>
+              <tr><td class="font-600">ER NI secondary threshold</td><td><span class="badge badge-success">NI</span></td><td class="mono td-num">£9,100/yr · 13.8%</td><td>6 Apr 2025</td><td></td><td><button class="btn btn-xs">Edit</button></td></tr>
+              <tr><td class="font-600">Pension qualifying earnings band</td><td><span class="badge badge-accent">Pension</span></td><td class="mono td-num">£6,240 – £50,270</td><td>6 Apr 2025</td><td class="td-muted text-sm">Auto-enrolment basis</td><td><button class="btn btn-xs">Edit</button></td></tr>
+            </tbody>
+          </table></div>
+        </div>
       </div>
     </div>
 
-    <!-- ═══ ORG ONBOARDING WIZARD ═══ -->
+    <!-- ═══ ORG ONBOARDING WIZARD    <!-- ═══ ORG ONBOARDING WIZARD ═══ -->
     <div class="screen" id="screen-org-onboarding">
       <div class="page-header">
         <div><div class="page-title">Onboard new employer</div><div class="page-sub">Set up a new client organisation. 5-step wizard.</div></div>
@@ -986,6 +1013,26 @@ tr:hover td{background:var(--surface2)}
           <div class="form-row fr-3"><div class="form-group"><label>Contact name</label><input placeholder="Full name"></div><div class="form-group"><label>Email</label><input type="email" placeholder="admin@company.com"></div><div class="form-group"><label>Phone</label><input placeholder="01234 567890"></div></div>
         </div>
       </div>
+
+      <!-- Locations / Cost centres -->
+      <div class="card" style="margin-top:0">
+        <div class="card-header">
+          <div><div class="card-title">Locations</div><div class="card-sub">Physical locations associated with this PAYE scheme. At least one required. Each can be billed to a different cost centre.</div></div>
+          <button class="btn btn-sm btn-primary" onclick="addWizLocation()">+ Add location</button>
+        </div>
+        <div class="alert alert-info" style="margin-bottom:12px"><div class="alert-icon">ℹ</div><div>Additional PAYE schemes (e.g. for separate legal entities) can be created after activation via <strong>Org settings → PAYE schemes</strong>. Each scheme has its own location set.</div></div>
+        <div id="wiz-locations-list">
+          <div class="wiz-loc-row" style="display:grid;grid-template-columns:1fr 1.5fr 120px 140px 44px;gap:10px;align-items:end;padding-bottom:10px;border-bottom:1px solid var(--border);margin-bottom:10px">
+            <div class="form-group"><label>Location name</label><input placeholder="e.g. Birmingham HQ" value="Birmingham HQ"></div>
+            <div class="form-group"><label>Address</label><input placeholder="Street, postcode" value="12 High St, Birmingham B1 1AA"></div>
+            <div class="form-group"><label>Location code</label><input class="mono" placeholder="LOC-001" value="LOC-001" style="text-transform:uppercase"></div>
+            <div class="form-group"><label>Cost centre (optional)</label><input class="mono" placeholder="CC-BIRM" value="CC-BIRM"></div>
+            <div class="form-group"><label style="visibility:hidden">Del</label><button class="btn btn-xs btn-danger w-full" onclick="removeWizLocation(this)" title="Remove location">✕</button></div>
+          </div>
+        </div>
+        <div class="text-xs text-hint" style="margin-top:4px">Location code and cost centre are used in payroll reports to filter and reconcile by site.</div>
+      </div>
+
       <div style="display:flex;justify-content:flex-end"><button class="btn btn-primary" onclick="wizN(1)">Continue to HMRC &amp; RTI →</button></div></div>
 
       <div id="wiz-p2" style="display:none"><div class="card"><div class="card-header"><div class="card-title">HMRC &amp; RTI</div></div>
@@ -1182,6 +1229,7 @@ tr:hover td{background:var(--surface2)}
             <span class="badge badge-teal" style="background:var(--teal-bg);color:var(--teal-text);font-size:10px">⚡ API run</span>
           </div>
           <div class="flex gap-8">
+            <button class="btn btn-xs btn-primary" onclick="showModal('modal-fps-submit')">Submit to HMRC →</button>
             <button class="btn btn-xs" onclick="nav('payslips',null,'org')">Payslips</button>
             <button class="btn btn-xs" onclick="nav('reports',null,'org')">Reports &amp; BACS</button>
           </div>
@@ -1225,30 +1273,66 @@ tr:hover td{background:var(--surface2)}
       <div class="page-header">
         <div><div class="page-title">Hours &amp; amendments</div><div class="page-sub">Manual entry · period corrections · bulk import</div></div>
         <div class="page-actions">
-          <button class="btn btn-sm" onclick="showModal('modal-bulk-hours')">Bulk import</button>
+          <button class="btn btn-sm" onclick="showModal('modal-bulk-hours')">Bulk import CSV</button>
           <button class="btn btn-primary" onclick="showModal('modal-add-hours')">+ Add / amend</button>
         </div>
       </div>
-      <div class="card">
-        <div class="card-header"><div class="card-title">Hours for W14 — 31 Mar to 6 Apr 2026</div><div class="card-sub">84 employees · 12 amended this period</div></div>
-        <div class="table-wrap"><table>
-          <thead><tr><th>Employee</th><th>Department</th><th>Contracted hrs</th><th>Entered hrs</th><th>Diff</th><th>Note</th><th></th></tr></thead>
-          <tbody id="hours-tbody"></tbody>
-        </table></div>
+      <div class="tabs" id="hours-tabs">
+        <div class="tab active" onclick="hoursTab('current',this)">Current run — W14</div>
+        <div class="tab" onclick="hoursTab('backdated',this)">Backdated <span class="nav-badge blue" style="margin-left:4px">1</span></div>
+        <div class="tab" onclick="hoursTab('future',this)">Future / scheduled <span class="nav-badge blue" style="margin-left:4px">1</span></div>
       </div>
-      <div class="card">
-        <div class="card-header"><div class="card-title">Backdated &amp; future amendments</div></div>
-        <div class="table-wrap"><table>
-          <thead><tr><th>Employee</th><th>Original period</th><th>Type</th><th>Old value</th><th>New value</th><th>Effective</th><th>Amended by</th><th>Status</th></tr></thead>
-          <tbody>
-            <tr><td>Priya Sharma</td><td>W12 Mar 2026</td><td>Hours correction</td><td class="td-num">35.0</td><td class="td-num">37.5</td><td>Backdated</td><td class="td-muted">J. Ashworth</td><td><span class="badge badge-success">Applied</span></td></tr>
-            <tr><td>Daniel Park</td><td>W15 Apr 2026</td><td>SPP ends / return</td><td class="td-num">0</td><td class="td-num">37.5</td><td>Future</td><td class="td-muted">J. Ashworth</td><td><span class="badge badge-info">Scheduled</span></td></tr>
-          </tbody>
-        </table></div>
+
+      <div id="hours-tab-current">
+        <div class="card">
+          <div class="card-header">
+            <div><div class="card-title">W14 — 31 Mar to 6 Apr 2026</div><div class="card-sub">84 employees · Cut-off: 31 Mar 2026 · BACS deadline: 8 Apr 2026</div></div>
+            <div class="card-actions">
+              <select style="padding:5px 10px;font-size:12px;border:1px solid var(--border2);border-radius:var(--radius);font-family:'DM Sans',sans-serif">
+                <option>All locations</option><option>Birmingham HQ</option><option>Coventry Branch</option>
+              </select>
+              <select style="padding:5px 10px;font-size:12px;border:1px solid var(--border2);border-radius:var(--radius);font-family:'DM Sans',sans-serif">
+                <option>W14 — 31 Mar–6 Apr</option><option>W13 — 24–30 Mar</option><option>W12 — 17–23 Mar</option>
+              </select>
+            </div>
+          </div>
+          <div class="table-wrap"><table>
+            <thead><tr><th>Employee</th><th>Location</th><th>Department</th><th>Contracted hrs</th><th>Entered hrs</th><th>Diff</th><th>Note</th><th></th></tr></thead>
+            <tbody id="hours-tbody"></tbody>
+          </table></div>
+        </div>
+      </div>
+
+      <div id="hours-tab-backdated" style="display:none">
+        <div class="alert alert-warning"><div class="alert-icon">⚠</div><div><span class="alert-title">Backdated amendments trigger recalculation.</span> A change to a closed period generates an in-year correction. The affected run will be re-submitted to HMRC automatically.</div></div>
+        <div class="card">
+          <div class="card-header"><div class="card-title">Backdated amendments</div><div class="card-sub">Changes to closed periods · all audit-logged</div></div>
+          <div class="table-wrap"><table>
+            <thead><tr><th>Employee</th><th>Original period</th><th>Type</th><th>Old value</th><th>New value</th><th>Amended by</th><th>Amended on</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td><div class="font-600">Priya Sharma</div><div class="text-xs text-hint">Coventry Branch</div></td><td>W12 Mar 2026</td><td>Hours correction</td><td class="td-num">35.0</td><td class="td-num">37.5</td><td class="td-muted">J. Ashworth</td><td class="td-muted text-sm">29 Mar 2026</td><td><span class="badge badge-success">Applied</span></td></tr>
+            </tbody>
+          </table></div>
+          <div style="margin-top:12px"><button class="btn btn-sm btn-primary" onclick="showModal('modal-add-hours')">+ New backdated amendment</button></div>
+        </div>
+      </div>
+
+      <div id="hours-tab-future" style="display:none">
+        <div class="alert alert-info"><div class="alert-icon">ℹ</div><div><span class="alert-title">Staged amendments.</span> Applied automatically when the target period opens. Useful for planned returns, confirmed leave dates, and pre-agreed rate changes.</div></div>
+        <div class="card">
+          <div class="card-header"><div class="card-title">Future / scheduled amendments</div><div class="card-sub">Applied automatically on the relevant pay period</div></div>
+          <div class="table-wrap"><table>
+            <thead><tr><th>Employee</th><th>Target period</th><th>Type</th><th>Value</th><th>Reason</th><th>Created by</th><th>Status</th><th></th></tr></thead>
+            <tbody>
+              <tr><td><div class="font-600">Daniel Park</div><div class="text-xs text-hint">Coventry Branch</div></td><td>W15 Apr 2026</td><td>Return from SPP</td><td class="td-num">37.5 hrs</td><td class="text-sm td-muted">SPP ends 14 Apr</td><td class="td-muted">J. Ashworth</td><td><span class="badge badge-info">Scheduled</span></td><td><button class="btn btn-xs btn-danger">Cancel</button></td></tr>
+            </tbody>
+          </table></div>
+          <div style="margin-top:12px"><button class="btn btn-sm btn-primary" onclick="showModal('modal-add-hours')">+ Schedule future amendment</button></div>
+        </div>
       </div>
     </div>
 
-    <!-- ═══ EMPLOYEES ═══ -->
+    <!-- ═══ EMPLOYEES ═══ -->    <!-- ═══ EMPLOYEES ═══ -->
     <div class="screen" id="screen-employees">
       <div class="page-header">
         <div><div class="page-title">Employees</div><div class="page-sub">84 active · 3 on leave · 2 pending onboarding</div></div>
@@ -1424,10 +1508,11 @@ tr:hover td{background:var(--surface2)}
       <div class="api-banner"><span class="dot dot-blue" style="background:var(--teal)"></span><strong>API sync active</strong> — Employee data pulled from S4Labour integration. Last sync: today 08:14.</div>
       <div class="card">
         <div class="table-wrap"><table>
-          <thead><tr><th>Employee</th><th>Start date</th><th>NI number</th><th>Personal</th><th>Tax &amp; NI</th><th>Bank</th><th>P45/Decl</th><th>Pension</th><th>Status</th><th></th></tr></thead>
+          <thead><tr><th>Employee</th><th>Location</th><th>Start date</th><th>NI number</th><th>Personal</th><th>Tax &amp; NI</th><th>Bank</th><th>P45/Decl</th><th>Pension</th><th>Status</th><th></th></tr></thead>
           <tbody>
             <tr>
-              <td><div class="font-600">Jamie Lee</div><div class="text-xs text-hint">Barista · Site A</div></td>
+              <td><div class="font-600">Jamie Lee</div><div class="text-xs text-hint">Barista</div></td>
+              <td><span class="tag">Birmingham HQ</span></td>
               <td>1 Apr 2026</td><td class="mono td-muted">AB123456C</td>
               <td><span class="badge badge-success">✓</span></td><td><span class="badge badge-success">✓</span></td><td><span class="badge badge-success">✓</span></td>
               <td><span class="badge badge-warning">Pending</span></td><td><span class="badge badge-success">✓</span></td>
@@ -1435,7 +1520,8 @@ tr:hover td{background:var(--surface2)}
               <td><button class="btn btn-xs btn-primary" onclick="nav('employee-profile',null,'org')">Open</button></td>
             </tr>
             <tr>
-              <td><div class="font-600">Fatima Osei</div><div class="text-xs text-hint">Supervisor · Site B</div></td>
+              <td><div class="font-600">Fatima Osei</div><div class="text-xs text-hint">Supervisor</div></td>
+              <td><span class="tag">Coventry Branch</span></td>
               <td>1 Apr 2026</td><td class="mono td-muted">CD987654A</td>
               <td><span class="badge badge-success">✓</span></td><td><span class="badge badge-success">✓</span></td><td><span class="badge badge-danger">Missing</span></td>
               <td><span class="badge badge-success">✓</span></td><td><span class="badge badge-warning">Pending</span></td>
@@ -1632,7 +1718,8 @@ tr:hover td{background:var(--surface2)}
       </div>
       <div class="tabs" id="os-tabs">
         <div class="tab active" onclick="osTab('company',this)">Company</div>
-        <div class="tab" onclick="osTab('hmrc',this)">HMRC &amp; RTI</div>
+        <div class="tab" onclick="osTab('paye',this)">PAYE schemes</div>
+        <div class="tab" onclick="osTab('locations',this)">Locations</div>
         <div class="tab" onclick="osTab('schedules',this)">Pay schedules</div>
         <div class="tab" onclick="osTab('users',this)">Users</div>
       </div>
@@ -1642,6 +1729,60 @@ tr:hover td{background:var(--surface2)}
           <div class="form-row fr-3"><div class="form-group"><label>Company number</label><input class="mono" value="09876543"></div><div class="form-group"><label>Sector</label><select><option>Hospitality &amp; food service</option></select></div><div class="form-group"><label>Postcode</label><input class="mono" value="B1 1AA"></div></div>
         </div>
       </div></div>
+      <div id="os-paye" style="display:none">
+        <div class="card">
+          <div class="card-header">
+            <div><div class="card-title">PAYE schemes</div><div class="card-sub">Each scheme has its own RTI credentials, locations and pay schedules. Create additional schemes for separate legal entities or cost-centre billing.</div></div>
+            <button class="btn btn-sm btn-primary" onclick="showModal('modal-new-paye-scheme')">+ Add PAYE scheme</button>
+          </div>
+          <div class="table-wrap"><table>
+            <thead><tr><th>PAYE reference</th><th>Accounts office ref</th><th>Scheme name</th><th>Locations</th><th>Employees</th><th>RTI</th><th></th></tr></thead>
+            <tbody>
+              <tr>
+                <td class="mono font-600">120/AB12345</td>
+                <td class="mono td-muted text-sm">120PA00123456</td>
+                <td><div class="font-600">Main scheme</div><div class="text-xs text-hint">Primary PAYE registration</div></td>
+                <td>2 locations</td><td>84</td>
+                <td><span class="badge badge-success">✓ Live</span></td>
+                <td class="td-action"><button class="btn btn-xs" onclick="osTab('locations',null)">Locations →</button><button class="btn btn-xs">Edit</button></td>
+              </tr>
+            </tbody>
+          </table></div>
+          <div class="divider"></div>
+          <div class="alert alert-accent" style="margin-bottom:0"><div class="alert-icon">ℹ</div><div><span class="alert-title">Adding a new PAYE scheme</span> walks through the same onboarding journey (HMRC credentials, RTI test, locations, pay schedules). Each scheme is reported and billed independently.</div></div>
+        </div>
+      </div>
+
+      <div id="os-locations" style="display:none">
+        <div class="card">
+          <div class="card-header">
+            <div><div class="card-title">Locations — Main scheme (120/AB12345)</div><div class="card-sub">Physical locations linked to this PAYE scheme. Cost centres appear on payroll reports for reconciliation.</div></div>
+            <button class="btn btn-sm btn-primary" onclick="showModal('modal-new-location')">+ Add location</button>
+          </div>
+          <div class="table-wrap"><table>
+            <thead><tr><th>Location name</th><th>Address</th><th>Code</th><th>Cost centre</th><th>Employees</th><th>PAYE scheme</th><th>Status</th><th></th></tr></thead>
+            <tbody>
+              <tr>
+                <td><div class="font-600">Birmingham HQ</div></td>
+                <td class="td-muted text-sm">12 High St, Birmingham B1 1AA</td>
+                <td class="mono td-muted">LOC-001</td><td class="mono td-muted">CC-BIRM</td>
+                <td>52</td><td class="mono text-sm td-muted">120/AB12345</td>
+                <td><span class="badge badge-success">Active</span></td>
+                <td class="td-action"><button class="btn btn-xs">Edit</button></td>
+              </tr>
+              <tr>
+                <td><div class="font-600">Coventry Branch</div></td>
+                <td class="td-muted text-sm">8 Retail Park, Coventry CV1 2EF</td>
+                <td class="mono td-muted">LOC-002</td><td class="mono td-muted">CC-COV</td>
+                <td>32</td><td class="mono text-sm td-muted">120/AB12345</td>
+                <td><span class="badge badge-success">Active</span></td>
+                <td class="td-action"><button class="btn btn-xs">Edit</button></td>
+              </tr>
+            </tbody>
+          </table></div>
+        </div>
+      </div>
+
       <div id="os-hmrc" style="display:none"><div class="card"><div class="card-header"><div class="card-title">HMRC &amp; RTI</div></div>
         <div class="form-row fr-2"><div class="form-group"><label>PAYE reference</label><input class="mono" value="120/AB12345"></div><div class="form-group"><label>Accounts office ref</label><input class="mono" value="120PA00123456"></div></div>
         <div style="margin-top:8px;display:flex;align-items:center;gap:12px"><button class="btn btn-sm" onclick="testRTI2()">Re-test connection</button><span id="rti2-result" class="badge badge-success">✓ Connected · Last verified 28 Mar 2026</span></div>
@@ -1862,7 +2003,7 @@ tr:hover td{background:var(--surface2)}
       <div class="form-row fr-2"><div class="form-group"><label>NI number</label><input class="mono" placeholder="AB 12 34 56 C"></div><div class="form-group"><label>Email</label><input type="email" placeholder="employee@email.com"></div></div>
     </div>
     <div class="form-section"><div class="form-section-title">Employment</div>
-      <div class="form-row fr-3"><div class="form-group"><label>Start date</label><input type="date"></div><div class="form-group"><label>Site</label><select><option>Site A — Birmingham</option><option>Site B — Coventry</option></select></div><div class="form-group"><label>Pay frequency</label><select><option>Weekly</option><option>Monthly</option></select></div></div>
+      <div class="form-row fr-4"><div class="form-group"><label>Start date</label><input type="date"></div><div class="form-group"><label>Location</label><select><option>Birmingham HQ (LOC-001)</option><option>Coventry Branch (LOC-002)</option></select></div><div class="form-group"><label>Pay frequency</label><select><option>Weekly</option><option>Monthly</option><option>Four-weekly</option></select></div><div class="form-group"><label>NI category</label><select><option>A — Standard</option><option>B — Married women</option><option>C — Over state pension age</option><option>H — Apprentice under 25</option><option>M — Under 21</option></select></div></div>
       <div class="pulled">↻ Department, job title and pay rate sync from S4Labour API</div>
     </div>
     <div class="form-section" style="margin-bottom:0"><div class="form-section-title">Starter declaration</div>
@@ -1937,147 +2078,100 @@ tr:hover td{background:var(--surface2)}
 // ═══════════════════════════════════════════════════════════════
 // UK PAYROLL CALCULATION ENGINE — 2025/26 Tax Year
 // ═══════════════════════════════════════════════════════════════
-
 const TAX = {
-  pa: 12570, brl: 50270, hrl: 125140,
-  br: 0.20, hr: 0.40, ar: 0.45,
-  niPT: 12570, niUEL: 50270, niST: 9100,
-  niEEMain: 0.08, niEEAdd: 0.02, niER: 0.138,
-  smpFlat: 184.03, sppFlat: 184.03, sspWeekly: 116.75,
-  pensionQELow: 6240, pensionQEHigh: 50270,
-  nlw: 12.21,
+  pa:12570, brl:50270, hrl:125140, br:0.20, hr:0.40, ar:0.45,
+  niPT:12570, niUEL:50270, niST:9100, niEEMain:0.08, niEEAdd:0.02, niER:0.138,
+  smpFlat:184.03, sppFlat:184.03, sspWeekly:116.75,
+  pensionQELow:6240, pensionQEHigh:50270, nlw:12.21,
 };
-
-function periodDivisor(freq) {
-  return freq === 'weekly' ? 52 : freq === 'monthly' ? 12 : 13;
+function periodDiv(freq){return freq==='weekly'?52:freq==='monthly'?12:13;}
+function calcPAYE(gross,freq,taxCode){
+  const d=periodDiv(freq), pa=(taxCode&&/^\d+L/.test(taxCode))?parseInt(taxCode)*10:TAX.pa;
+  const ann=gross*d, tax=Math.max(0,ann-pa);
+  const b1=Math.max(0,TAX.brl-pa), b2=Math.max(0,TAX.hrl-TAX.brl);
+  let t=0;
+  if(tax<=b1) t=tax*TAX.br;
+  else if(tax<=b1+b2) t=b1*TAX.br+(tax-b1)*TAX.hr;
+  else t=b1*TAX.br+b2*TAX.hr+(tax-b1-b2)*TAX.ar;
+  return Math.max(0,t/d);
 }
-
-function calcPAYE(periodGross, freq, taxCode) {
-  // Annualise, apply personal allowance, calculate tax, de-annualise
-  const d = periodDivisor(freq);
-  const pa = (taxCode && /^\d+L/.test(taxCode)) ? parseInt(taxCode) * 10 : TAX.pa;
-  const annGross = periodGross * d;
-  const taxable = Math.max(0, annGross - pa);
-  let annTax = 0;
-  const b1 = Math.max(0, TAX.brl - pa);
-  const b2 = Math.max(0, TAX.hrl - TAX.brl);
-  if (taxable <= b1) {
-    annTax = taxable * TAX.br;
-  } else if (taxable <= b1 + b2) {
-    annTax = b1 * TAX.br + (taxable - b1) * TAX.hr;
-  } else {
-    annTax = b1 * TAX.br + b2 * TAX.hr + (taxable - b1 - b2) * TAX.ar;
-  }
-  return Math.max(0, annTax / d);
+function calcNI_EE(gross,freq){
+  const d=periodDiv(freq),pt=TAX.niPT/d,uel=TAX.niUEL/d;
+  if(gross<=pt)return 0;
+  if(gross<=uel)return(gross-pt)*TAX.niEEMain;
+  return(uel-pt)*TAX.niEEMain+(gross-uel)*TAX.niEEAdd;
 }
-
-function calcNI_EE(periodGross, freq) {
-  const d = periodDivisor(freq);
-  const pt = TAX.niPT / d, uel = TAX.niUEL / d;
-  if (periodGross <= pt) return 0;
-  if (periodGross <= uel) return (periodGross - pt) * TAX.niEEMain;
-  return (uel - pt) * TAX.niEEMain + (periodGross - uel) * TAX.niEEAdd;
+function calcNI_ER(gross,freq){
+  const st=TAX.niST/periodDiv(freq);
+  return gross<=st?0:(gross-st)*TAX.niER;
 }
-
-function calcNI_ER(periodGross, freq) {
-  const d = periodDivisor(freq);
-  const st = TAX.niST / d;
-  return periodGross <= st ? 0 : (periodGross - st) * TAX.niER;
+function calcPension(gross,freq,eeRate,erRate){
+  const d=periodDiv(freq),lo=TAX.pensionQELow/d,hi=TAX.pensionQEHigh/d;
+  const qe=Math.max(0,Math.min(gross,hi)-lo);
+  return{ee:qe*eeRate,er:qe*erRate,qe};
 }
-
-function calcPension(periodGross, freq, eeRate, erRate) {
-  const d = periodDivisor(freq);
-  const lower = TAX.pensionQELow / d;
-  const upper = TAX.pensionQEHigh / d;
-  const qe = Math.max(0, Math.min(periodGross, upper) - lower);
-  return { ee: qe * eeRate, er: qe * erRate, qe };
+function calcPeriod(gross,freq,opts){
+  opts=opts||{};
+  const eeR=opts.pensionEE||0.05, erR=opts.pensionER||0.03;
+  const ss=opts.salSac!==false, pen=calcPension(gross,freq,eeR,erR);
+  const tg=ss?gross-pen.ee:gross;
+  const paye=calcPAYE(tg,freq,opts.taxCode||'1257L');
+  const niEE=calcNI_EE(tg,freq), niER=calcNI_ER(tg,freq);
+  return{gross,taxableGross:tg,paye,niEE,niER,pensionEE:pen.ee,pensionER:pen.er,pensionQE:pen.qe,net:tg-paye-niEE,totalCost:gross+niER+pen.er};
 }
-
-function calcPeriod(gross, freq, opts) {
-  opts = opts || {};
-  const eeRate = opts.pensionEE || 0.05;
-  const erRate = opts.pensionER || 0.03;
-  const salSac = opts.salSac !== false;
-  const pension = calcPension(gross, freq, eeRate, erRate);
-  // Salary sacrifice: deducted BEFORE PAYE/NI
-  const taxableGross = salSac ? gross - pension.ee : gross;
-  const paye    = calcPAYE(taxableGross, freq, opts.taxCode || '1257L');
-  const niEE    = calcNI_EE(taxableGross, freq);
-  const niER    = calcNI_ER(taxableGross, freq);
-  const net     = taxableGross - paye - niEE;
-  return { gross, taxableGross, paye, niEE, niER,
-           pensionEE: pension.ee, pensionER: pension.er, pensionQE: pension.qe,
-           net, totalCost: gross + niER + pension.er };
-}
-
-// ─── FORMATTERS ───
-function fmt(n) {
-  return '£' + Math.abs(+n || 0).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-}
-function fmtN(n, dp) { return (+n||0).toFixed(dp === undefined ? 2 : dp); }
+function fmt(n){return '£'+Math.abs(+n||0).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,',');}
+function fmtN(n,dp){return(+n||0).toFixed(dp===undefined?2:dp);}
 
 // ═══════════════════════════════════════════════════════════════
-// DATA STORE — edit EMPLOYEES and RUN_HOURS to update everything
+// DATA STORE
 // ═══════════════════════════════════════════════════════════════
-
-const EMPLOYEES = [
-  { id:'E001', name:'Emma Walsh',     ni:'AB123400A', dept:'Front of house', site:'Site A', payType:'hourly', rate:13.85, freq:'weekly',  taxCode:'1257L', niCat:'A', pensionEE:0.05, pensionER:0.03, salSac:true,  status:'active', startDate:'6 Jan 2023' },
-  { id:'E002', name:'Oliver Brown',   ni:'CD234500B', dept:'Kitchen',         site:'Site A', payType:'hourly', rate:13.85, freq:'weekly',  taxCode:'1257L', niCat:'A', pensionEE:0.05, pensionER:0.03, salSac:true,  status:'active', startDate:'12 Mar 2022' },
-  { id:'E003', name:'Sarah Mitchell', ni:'EF345600C', dept:'Management',      site:'Site A', payType:'salary', rate:32000, freq:'monthly', taxCode:'1257L', niCat:'A', pensionEE:0.05, pensionER:0.03, salSac:false, status:'smp',    startDate:'1 Sep 2020' },
-  { id:'E004', name:'Priya Sharma',   ni:'GH456700D', dept:'Front of house', site:'Site B', payType:'hourly', rate:12.21, freq:'weekly',  taxCode:'1100L', niCat:'A', pensionEE:0.05, pensionER:0.03, salSac:true,  status:'active', startDate:'3 Jun 2023' },
-  { id:'E005', name:'Daniel Park',    ni:'IJ567800E', dept:'Kitchen',         site:'Site B', payType:'hourly', rate:13.85, freq:'weekly',  taxCode:'1257L', niCat:'A', pensionEE:0.05, pensionER:0.03, salSac:true,  status:'spp',    startDate:'18 Jan 2024' },
+const EMPLOYEES=[
+  {id:'E001',name:'Emma Walsh',    ni:'AB123400A',dept:'Front of house',location:'Birmingham HQ',costCentre:'CC-BIRM',payType:'hourly',rate:13.85,freq:'weekly', taxCode:'1257L',niCat:'A',pensionEE:0.05,pensionER:0.03,salSac:true, status:'active',startDate:'6 Jan 2023',  studentLoan:'None'},
+  {id:'E002',name:'Oliver Brown',  ni:'CD234500B',dept:'Kitchen',        location:'Birmingham HQ',costCentre:'CC-BIRM',payType:'hourly',rate:13.85,freq:'weekly', taxCode:'1257L',niCat:'A',pensionEE:0.05,pensionER:0.03,salSac:true, status:'active',startDate:'12 Mar 2022', studentLoan:'None'},
+  {id:'E003',name:'Sarah Mitchell',ni:'EF345600C',dept:'Management',     location:'Birmingham HQ',costCentre:'CC-BIRM',payType:'salary',rate:32000,freq:'monthly',taxCode:'1257L',niCat:'A',pensionEE:0.05,pensionER:0.03,salSac:false,status:'smp',   startDate:'1 Sep 2020',  studentLoan:'None'},
+  {id:'E004',name:'Priya Sharma',  ni:'GH456700D',dept:'Front of house',location:'Coventry Branch',costCentre:'CC-COV',payType:'hourly',rate:12.21,freq:'weekly', taxCode:'1100L',niCat:'A',pensionEE:0.05,pensionER:0.03,salSac:true, status:'active',startDate:'3 Jun 2023',  studentLoan:'Plan 2'},
+  {id:'E005',name:'Daniel Park',   ni:'IJ567800E',dept:'Kitchen',        location:'Coventry Branch',costCentre:'CC-COV',payType:'hourly',rate:13.85,freq:'weekly', taxCode:'1257L',niCat:'A',pensionEE:0.05,pensionER:0.03,salSac:true, status:'spp',   startDate:'18 Jan 2024', studentLoan:'None'},
+];
+const RUN_HOURS={E001:40,E002:68,E003:null,E004:37.5,E005:null};
+const HISTORY=[
+  {label:'W12 Mar 2026',h:{E001:37.5,E002:37.5,E004:35.0,E005:37.5}},
+  {label:'W11 Mar 2026',h:{E001:40,  E002:40,  E004:37.5,E005:37.5}},
+  {label:'W10 Feb 2026',h:{E001:40,  E002:40,  E004:37.5,E005:37.5}},
+  {label:'W9  Feb 2026',h:{E001:38,  E002:38,  E004:37.5,E005:0   }},
+  {label:'W8  Feb 2026',h:{E001:40,  E002:40,  E004:37.5,E005:0   }},
+  {label:'W7  Jan 2026',h:{E001:37.5,E002:37.5,E004:37.5,E005:37.5}},
 ];
 
-// Hours for current run W13 (null = statutory / salary)
-const RUN_HOURS = { E001:40, E002:68, E003:null, E004:37.5, E005:null };
-
-// Prior periods YTD (edit to change pay history)
-const HISTORY = [
-  { label:'W12 Mar 2026', h:{ E001:37.5, E002:37.5, E004:35.0, E005:37.5 } },
-  { label:'W11 Mar 2026', h:{ E001:40,   E002:40,   E004:37.5, E005:37.5 } },
-  { label:'W10 Feb 2026', h:{ E001:40,   E002:40,   E004:37.5, E005:37.5 } },
-  { label:'W9  Feb 2026', h:{ E001:38,   E002:38,   E004:37.5, E005:0    } },
-  { label:'W8  Feb 2026', h:{ E001:40,   E002:40,   E004:37.5, E005:0    } },
-  { label:'W7  Jan 2026', h:{ E001:37.5, E002:37.5, E004:37.5, E005:37.5 } },
-];
-
-// ─── DERIVED CALCULATIONS ───
-function grossForEmp(emp, hours) {
-  if (emp.status === 'smp') return TAX.smpFlat;
-  if (emp.status === 'spp') return TAX.sppFlat;
-  if (emp.status === 'unpaid') return 0;
-  if (emp.payType === 'salary') return emp.rate / periodDivisor(emp.freq);
-  return (hours || 0) * emp.rate;
+function grossForEmp(emp,hrs){
+  if(emp.status==='smp')return TAX.smpFlat;
+  if(emp.status==='spp')return TAX.sppFlat;
+  if(emp.status==='unpaid')return 0;
+  if(emp.payType==='salary')return emp.rate/periodDiv(emp.freq);
+  return(hrs||0)*emp.rate;
 }
-
-function periodCalc(emp, hours) {
-  const gross = grossForEmp(emp, hours);
-  return calcPeriod(gross, emp.freq, { pensionEE:emp.pensionEE, pensionER:emp.pensionER, salSac:emp.salSac, taxCode:emp.taxCode });
+function periodCalc(emp,hrs){
+  return calcPeriod(grossForEmp(emp,hrs),emp.freq,{pensionEE:emp.pensionEE,pensionER:emp.pensionER,salSac:emp.salSac,taxCode:emp.taxCode});
 }
-
-function empYTD(empId) {
-  const emp = EMPLOYEES.find(e => e.id === empId);
-  const allPeriods = [{ label:'W13 Mar 2026 (current)', h:{ [empId]: RUN_HOURS[empId] } }, ...HISTORY];
-  let ytd = { gross:0, paye:0, niEE:0, niER:0, pensionEE:0, pensionER:0, net:0 };
-  allPeriods.forEach(p => {
-    if (emp.freq === 'monthly' && p.label !== 'W13 Mar 2026 (current)') return;
-    const hrs = p.h[empId];
-    if (hrs === undefined) return;
-    const r = periodCalc(emp, hrs);
-    ytd.gross += r.gross; ytd.paye += r.paye; ytd.niEE += r.niEE;
-    ytd.niER += r.niER; ytd.pensionEE += r.pensionEE; ytd.pensionER += r.pensionER; ytd.net += r.net;
+function empYTD(empId){
+  const emp=EMPLOYEES.find(e=>e.id===empId);
+  const all=[{label:'W13 Mar 2026 (current)',h:{[empId]:RUN_HOURS[empId]}},...HISTORY];
+  let y={gross:0,paye:0,niEE:0,niER:0,pensionEE:0,pensionER:0,net:0};
+  all.forEach(p=>{
+    if(emp.freq==='monthly'&&p.label!=='W13 Mar 2026 (current)')return;
+    const hrs=p.h[empId]; if(hrs===undefined)return;
+    const r=periodCalc(emp,hrs);
+    y.gross+=r.gross;y.paye+=r.paye;y.niEE+=r.niEE;y.niER+=r.niER;
+    y.pensionEE+=r.pensionEE;y.pensionER+=r.pensionER;y.net+=r.net;
   });
-  return ytd;
+  return y;
 }
-
-function runTotals() {
-  let t = { gross:0, paye:0, niEE:0, niER:0, pensionEE:0, pensionER:0, net:0, totalCost:0, count:0 };
-  EMPLOYEES.forEach(emp => {
-    if (emp.status === 'inactive') return;
-    const r = periodCalc(emp, RUN_HOURS[emp.id]);
-    t.gross += r.gross; t.paye += r.paye; t.niEE += r.niEE;
-    t.niER += r.niER; t.pensionEE += r.pensionEE; t.pensionER += r.pensionER;
-    t.net += r.net; t.totalCost += r.totalCost; t.count++;
+function runTotals(){
+  let t={gross:0,paye:0,niEE:0,niER:0,pensionEE:0,pensionER:0,net:0,count:0};
+  EMPLOYEES.forEach(emp=>{
+    if(emp.status==='inactive')return;
+    const r=periodCalc(emp,RUN_HOURS[emp.id]);
+    t.gross+=r.gross;t.paye+=r.paye;t.niEE+=r.niEE;t.niER+=r.niER;
+    t.pensionEE+=r.pensionEE;t.pensionER+=r.pensionER;t.net+=r.net;t.count++;
   });
   return t;
 }
@@ -2085,275 +2179,173 @@ function runTotals() {
 // ═══════════════════════════════════════════════════════════════
 // RENDER FUNCTIONS
 // ═══════════════════════════════════════════════════════════════
-
-function renderRunCard() {
-  const t = runTotals();
-  const cells = document.querySelectorAll('#run-card-metrics span[data-run]');
-  cells.forEach(el => {
-    const k = el.dataset.run;
-    if (k === 'count')  el.textContent = t.count;
-    if (k === 'gross')  el.textContent = fmt(t.gross);
-    if (k === 'paye')   el.textContent = fmt(t.paye);
-    if (k === 'ni')     el.textContent = fmt(t.niEE + t.niER);
-    if (k === 'net')    el.textContent = fmt(t.net);
+function renderRunCard(){
+  const t=runTotals();
+  document.querySelectorAll('#run-card-metrics span[data-run]').forEach(el=>{
+    const k=el.dataset.run;
+    if(k==='count')el.textContent=t.count;
+    if(k==='gross')el.textContent=fmt(t.gross);
+    if(k==='paye') el.textContent=fmt(t.paye);
+    if(k==='ni')   el.textContent=fmt(t.niEE+t.niER);
+    if(k==='net')  el.textContent=fmt(t.net);
   });
-  // Modal metrics
-  const mm = document.querySelectorAll('#modal-run-detail .metric-value');
-  if (mm[0]) mm[0].textContent = fmt(t.gross);
-  if (mm[1]) mm[1].textContent = fmt(t.net);
-  if (mm[2]) mm[2].textContent = fmt(t.paye + t.niEE + t.niER);
-  // Approve modal
-  const am = document.querySelectorAll('#modal-run-approve .info-value.mono');
-  if (am[0]) am[0].textContent = fmt(t.gross);
-  if (am[1]) am[1].textContent = fmt(t.net);
-  if (am[2]) am[2].textContent = fmt(t.paye);
-  if (am[3]) am[3].textContent = fmt(t.niEE + t.niER);
-  // BACS panel
-  const bacsTotal = document.getElementById('bacs-net-total');
-  if (bacsTotal) bacsTotal.textContent = fmt(t.net);
-  const bacsCount = document.getElementById('bacs-emp-count');
-  if (bacsCount) bacsCount.textContent = t.count + ' records';
+  const mm=document.querySelectorAll('#modal-run-detail .metric-value');
+  if(mm[0])mm[0].textContent=fmt(t.gross);
+  if(mm[1])mm[1].textContent=fmt(t.net);
+  if(mm[2])mm[2].textContent=fmt(t.paye+t.niEE+t.niER);
+  const am=document.querySelectorAll('#modal-run-approve .info-value.mono');
+  if(am[0])am[0].textContent=fmt(t.gross);
+  if(am[1])am[1].textContent=fmt(t.net);
+  if(am[2])am[2].textContent=fmt(t.paye);
+  if(am[3])am[3].textContent=fmt(t.niEE+t.niER);
+  const bn=document.getElementById('bacs-net-total'); if(bn)bn.textContent=fmt(t.net);
+  const bc=document.getElementById('bacs-emp-count'); if(bc)bc.textContent=t.count+' records';
 }
 
-function renderRunDetailTable() {
-  const tbody = document.getElementById('run-detail-tbody');
-  if (!tbody) return;
-  tbody.innerHTML = '';
-  EMPLOYEES.forEach(emp => {
-    const hrs = RUN_HOURS[emp.id];
-    const r = periodCalc(emp, hrs);
-    const hrsDisplay = hrs !== null && hrs !== undefined ? fmtN(hrs,1) : emp.status === 'smp' ? 'SMP' : emp.status === 'spp' ? 'SPP' : '—';
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td><div class="font-600">${emp.name}</div><div class="text-xs mono text-hint">${emp.ni}</div></td>
-      <td>${hrsDisplay}</td>
-      <td class="td-num">${fmt(r.gross)}</td>
-      <td class="td-num">${fmt(r.paye)}</td>
-      <td class="td-num">${fmt(r.niEE)}</td>
-      <td class="td-num" style="color:var(--text2)">${fmt(r.niER)}</td>
-      <td class="td-num" style="color:var(--success-text)">${fmt(r.pensionEE)}</td>
-      <td class="td-num" style="color:var(--teal-text)">${fmt(r.pensionER)}</td>
-      <td class="td-num font-600">${fmt(r.net)}</td>`;
+function renderRunDetailTable(){
+  const tbody=document.getElementById('run-detail-tbody'); if(!tbody)return;
+  tbody.innerHTML='';
+  EMPLOYEES.forEach(emp=>{
+    const r=periodCalc(emp,RUN_HOURS[emp.id]);
+    const hd=RUN_HOURS[emp.id]!=null?fmtN(RUN_HOURS[emp.id],1):emp.status==='smp'?'SMP':emp.status==='spp'?'SPP':'—';
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td><div class="font-600">${emp.name}</div><div class="text-xs text-hint">${emp.location}</div></td><td>${hd}</td><td class="td-num">${fmt(r.gross)}</td><td class="td-num">${fmt(r.paye)}</td><td class="td-num">${fmt(r.niEE)}</td><td class="td-num" style="color:var(--text2)">${fmt(r.niER)}</td><td class="td-num" style="color:var(--success-text)">${fmt(r.pensionEE)}</td><td class="td-num" style="color:var(--teal-text)">${fmt(r.pensionER)}</td><td class="td-num font-600">${fmt(r.net)}</td>`;
     tbody.appendChild(tr);
   });
-  const t = runTotals();
-  const tr = document.createElement('tr');
-  tr.style.borderTop = '2px solid var(--border2)';
-  tr.style.background = 'var(--surface2)';
-  tr.innerHTML = `
-    <td class="font-600" colspan="2">Totals (${EMPLOYEES.length} shown + ${84-EMPLOYEES.length} more)</td>
-    <td class="td-num font-600">${fmt(t.gross)}</td>
-    <td class="td-num font-600">${fmt(t.paye)}</td>
-    <td class="td-num font-600">${fmt(t.niEE)}</td>
-    <td class="td-num font-600" style="color:var(--text2)">${fmt(t.niER)}</td>
-    <td class="td-num font-600" style="color:var(--success-text)">${fmt(t.pensionEE)}</td>
-    <td class="td-num font-600" style="color:var(--teal-text)">${fmt(t.pensionER)}</td>
-    <td class="td-num font-600">${fmt(t.net)}</td>`;
+  const t=runTotals();
+  const tr=document.createElement('tr');
+  tr.style.cssText='border-top:2px solid var(--border2);background:var(--surface2)';
+  tr.innerHTML=`<td class="font-600" colspan="2">Totals (${EMPLOYEES.length} shown + ${84-EMPLOYEES.length} more)</td><td class="td-num font-600">${fmt(t.gross)}</td><td class="td-num font-600">${fmt(t.paye)}</td><td class="td-num font-600">${fmt(t.niEE)}</td><td class="td-num font-600" style="color:var(--text2)">${fmt(t.niER)}</td><td class="td-num font-600" style="color:var(--success-text)">${fmt(t.pensionEE)}</td><td class="td-num font-600" style="color:var(--teal-text)">${fmt(t.pensionER)}</td><td class="td-num font-600">${fmt(t.net)}</td>`;
   tbody.appendChild(tr);
 }
 
-function renderBacsTable() {
-  const tbody = document.getElementById('bacs-detail-tbody');
-  if (!tbody) return;
-  tbody.innerHTML = '';
-  EMPLOYEES.slice(0, 3).forEach((emp, i) => {
-    const r = periodCalc(emp, RUN_HOURS[emp.id]);
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td>${emp.name}</td>
-      <td class="mono">20-00-00</td>
-      <td class="mono">●●●●●●${(89+i).toString().slice(-2)}</td>
-      <td class="td-num font-600">${fmt(r.net)}</td>
-      <td class="mono text-xs td-muted">COFFEECO/W13/${80+i}</td>`;
+function renderBacsTable(){
+  const tbody=document.getElementById('bacs-detail-tbody'); if(!tbody)return;
+  tbody.innerHTML='';
+  EMPLOYEES.slice(0,3).forEach((emp,i)=>{
+    const r=periodCalc(emp,RUN_HOURS[emp.id]);
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td>${emp.name}</td><td class="mono">20-00-0${i}</td><td class="mono">●●●●●●${(89+i).toString().slice(-2)}</td><td class="td-num font-600">${fmt(r.net)}</td><td class="mono text-xs td-muted">COFFEECO/W13/${80+i}</td>`;
     tbody.appendChild(tr);
   });
-  const tr = document.createElement('tr');
-  tr.innerHTML = `<td colspan="5" class="text-xs td-muted" style="text-align:center;padding:8px 12px">+ ${84 - 3} more records</td>`;
+  const tr=document.createElement('tr');
+  tr.innerHTML=`<td colspan="5" class="text-xs td-muted" style="text-align:center;padding:8px 12px">+ ${84-3} more records</td>`;
   tbody.appendChild(tr);
 }
 
-function renderHoursTable() {
-  const tbody = document.getElementById('hours-tbody');
-  if (!tbody) return;
-  tbody.innerHTML = '';
-  EMPLOYEES.forEach(emp => {
-    if (emp.status === 'smp' || emp.status === 'spp' || emp.status === 'unpaid') {
-      const tr = document.createElement('tr');
-      tr.innerHTML = `<td><div class="font-600">${emp.name}</div></td><td>${emp.dept}</td><td class="td-num td-muted">—</td><td class="td-num td-muted">—</td><td class="td-num td-muted">—</td><td><span class="badge ${emp.status==='smp'?'badge-purple':'badge-info'}">${emp.status.toUpperCase()}</span></td><td><button class="btn btn-xs" disabled>Edit</button></td>`;
+function renderHoursTable(){
+  const tbody=document.getElementById('hours-tbody'); if(!tbody)return;
+  tbody.innerHTML='';
+  EMPLOYEES.forEach(emp=>{
+    if(emp.status==='smp'||emp.status==='spp'){
+      const tr=document.createElement('tr');
+      tr.innerHTML=`<td><div class="font-600">${emp.name}</div></td><td><span class="tag">${emp.location}</span></td><td class="td-muted">${emp.dept}</td><td class="td-num td-muted">—</td><td class="td-num td-muted">—</td><td class="td-num td-muted">—</td><td><span class="badge ${emp.status==='smp'?'badge-purple':'badge-info'}">${emp.status.toUpperCase()}</span></td><td><button class="btn btn-xs" disabled>Edit</button></td>`;
       tbody.appendChild(tr);
       return;
     }
-    const contracted = 37.5;
-    const entered = RUN_HOURS[emp.id] || 37.5;
-    const diff = entered - contracted;
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td><div class="font-600">${emp.name}</div></td>
-      <td>${emp.dept}</td>
-      <td class="td-num">${fmtN(contracted,1)}</td>
-      <td class="td-num ${diff > 10 ? 'metric-down' : ''}" style="${diff > 10 ? 'font-weight:700' : ''}">${fmtN(entered,1)}</td>
-      <td class="td-num ${diff > 0 ? 'metric-up' : diff < 0 ? 'metric-down' : 'td-muted'}">${diff >= 0 ? '+' : ''}${fmtN(diff,1)}</td>
-      <td>${diff > 10 ? '<span class="badge badge-warning">Override logged</span>' : diff > 0 ? '<span class="text-xs text-hint">Cover shift</span>' : '—'}</td>
-      <td><button class="btn btn-xs" onclick="showModal('modal-add-hours')">Edit</button></td>`;
+    const cont=37.5, ent=RUN_HOURS[emp.id]||37.5, diff=ent-cont;
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td><div class="font-600">${emp.name}</div></td><td><span class="tag">${emp.location}</span></td><td class="td-muted">${emp.dept}</td><td class="td-num">${fmtN(cont,1)}</td><td class="td-num ${diff>10?'metric-down':''}" style="${diff>10?'font-weight:700':''}">${fmtN(ent,1)}</td><td class="td-num ${diff>0?'metric-up':diff<0?'metric-down':'td-muted'}">${diff>=0?'+':''}${fmtN(diff,1)}</td><td>${diff>10?'<span class="badge badge-warning">Override logged</span>':diff>0?'<span class="text-xs text-hint">Cover shift</span>':'—'}</td><td><button class="btn btn-xs" onclick="showModal('modal-add-hours')">Edit</button></td>`;
     tbody.appendChild(tr);
   });
-  const tr = document.createElement('tr');
-  tr.innerHTML = `<td colspan="7" class="text-xs td-muted" style="text-align:center;padding:12px">+ 79 more employees</td>`;
+  const tr=document.createElement('tr');
+  tr.innerHTML=`<td colspan="8" class="text-xs td-muted" style="text-align:center;padding:12px">+ 79 more employees</td>`;
   tbody.appendChild(tr);
 }
 
-function renderEmployeesTable() {
-  const tbody = document.getElementById('employees-tbody');
-  if (!tbody) return;
-  tbody.innerHTML = '';
-  EMPLOYEES.forEach(emp => {
-    const statusBadge = emp.status === 'active' ? '<span class="badge badge-success">Active</span>' :
-                        emp.status === 'smp'    ? '<span class="badge badge-purple">On SMP</span>' :
-                        emp.status === 'spp'    ? '<span class="badge badge-info">On SPP</span>' :
-                                                  '<span class="badge badge-neutral">' + emp.status + '</span>';
-    const rateDisplay = emp.payType === 'hourly' ? fmt(emp.rate) + '/hr' : '£' + emp.rate.toLocaleString() + '/yr';
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td><div class="font-600">${emp.name}</div><div class="text-xs mono text-hint">${emp.ni}</div></td>
-      <td>${emp.dept}</td>
-      <td><span class="tag">${emp.payType === 'hourly' ? 'Hourly' : 'Salary'}</span></td>
-      <td class="td-num">${rateDisplay}</td>
-      <td class="mono td-muted">${emp.taxCode}</td>
-      <td class="td-muted">${emp.niCat}</td>
-      <td>${statusBadge}</td>
-      <td class="td-action"><button class="btn btn-xs" onclick="openEmpProfile('${emp.id}')">View</button></td>`;
+function renderEmployeesTable(){
+  const tbody=document.getElementById('employees-tbody'); if(!tbody)return;
+  tbody.innerHTML='';
+  EMPLOYEES.forEach(emp=>{
+    const sb=emp.status==='active'?'<span class="badge badge-success">Active</span>':emp.status==='smp'?'<span class="badge badge-purple">On SMP</span>':emp.status==='spp'?'<span class="badge badge-info">On SPP</span>':'<span class="badge badge-neutral">'+emp.status+'</span>';
+    const rd=emp.payType==='hourly'?fmt(emp.rate)+'/hr':'£'+emp.rate.toLocaleString()+'/yr';
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td><div class="font-600">${emp.name}</div><div class="text-xs mono text-hint">${emp.ni}</div></td><td>${emp.dept}</td><td><span class="tag">${emp.payType==='hourly'?'Hourly':'Salary'}</span></td><td class="td-num">${rd}</td><td class="mono td-muted">${emp.taxCode}</td><td class="td-muted">${emp.niCat}</td><td>${sb}</td><td class="td-action"><button class="btn btn-xs" onclick="openEmpProfile('${emp.id}')">View</button></td>`;
     tbody.appendChild(tr);
   });
-  const tr = document.createElement('tr');
-  tr.innerHTML = `<td colspan="8" class="text-xs td-muted" style="text-align:center;padding:12px">+ 79 more employees</td>`;
+  const tr=document.createElement('tr');
+  tr.innerHTML=`<td colspan="8" class="text-xs td-muted" style="text-align:center;padding:12px">+ 79 more employees</td>`;
   tbody.appendChild(tr);
 }
 
-let currentEmpId = 'E001';
-
-function renderPayHistory(empId) {
-  const emp = EMPLOYEES.find(e => e.id === empId) || EMPLOYEES[0];
-  const ytd = empYTD(empId);
-  // YTD metric cards
-  const m = document.querySelectorAll('#emp-ytd .metric-value');
-  if (m[0]) m[0].textContent = fmt(ytd.gross);
-  if (m[1]) m[1].textContent = fmt(ytd.paye);
-  if (m[2]) m[2].textContent = fmt(ytd.niEE);
-  if (m[3]) m[3].textContent = fmt(ytd.net);
-  // Pay history table
-  const tbody = document.getElementById('pay-history-tbody');
-  if (!tbody) return;
-  tbody.innerHTML = '';
-  const allPeriods = [{ label:'W13 Mar 2026', h:{ [empId]: RUN_HOURS[empId] }, current:true }, ...HISTORY.map(h => ({...h, current:false}))];
-  allPeriods.forEach(period => {
-    const hrs = period.h[empId];
-    if (hrs === undefined) return;
-    if (emp.freq === 'monthly' && !period.current) return; // monthly: only show current
-    const r = periodCalc(emp, hrs);
-    const hrsDisplay = hrs !== null ? fmtN(hrs, 1) : emp.status === 'smp' ? 'SMP' : emp.status === 'spp' ? 'SPP' : '—';
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td>${period.label}${period.current ? ' <span class="badge badge-warning" style="font-size:10px">Current</span>' : ''}</td>
-      <td class="td-num">${hrsDisplay}</td>
-      <td class="td-num">${fmt(r.gross)}</td>
-      <td class="td-num">${fmt(r.paye)}</td>
-      <td class="td-num">${fmt(r.niEE)}</td>
-      <td class="td-num" style="color:var(--text2)">${fmt(r.niER)}</td>
-      <td class="td-num" style="color:var(--success-text)">${fmt(r.pensionEE)}</td>
-      <td class="td-num" style="color:var(--teal-text)">${fmt(r.pensionER)}</td>
-      <td class="td-num font-600">${fmt(r.net)}</td>
-      <td><button class="btn btn-xs">Payslip</button></td>`;
+let currentEmpId='E001';
+function renderPayHistory(empId){
+  const emp=EMPLOYEES.find(e=>e.id===empId)||EMPLOYEES[0];
+  const ytd=empYTD(empId);
+  const m=document.querySelectorAll('#emp-ytd .metric-value');
+  if(m[0])m[0].textContent=fmt(ytd.gross);
+  if(m[1])m[1].textContent=fmt(ytd.paye);
+  if(m[2])m[2].textContent=fmt(ytd.niEE);
+  if(m[3])m[3].textContent=fmt(ytd.net);
+  const tbody=document.getElementById('pay-history-tbody'); if(!tbody)return;
+  tbody.innerHTML='';
+  const all=[{label:'W13 Mar 2026',h:{[empId]:RUN_HOURS[empId]},current:true},...HISTORY.map(h=>({...h,current:false}))];
+  all.forEach(period=>{
+    const hrs=period.h[empId]; if(hrs===undefined)return;
+    if(emp.freq==='monthly'&&!period.current)return;
+    const r=periodCalc(emp,hrs);
+    const hd=hrs!=null?fmtN(hrs,1):emp.status==='smp'?'SMP':emp.status==='spp'?'SPP':'—';
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td>${period.label}${period.current?' <span class="badge badge-warning" style="font-size:10px">Current</span>':''}</td><td class="td-num">${hd}</td><td class="td-num">${fmt(r.gross)}</td><td class="td-num">${fmt(r.paye)}</td><td class="td-num">${fmt(r.niEE)}</td><td class="td-num" style="color:var(--text2)">${fmt(r.niER)}</td><td class="td-num" style="color:var(--success-text)">${fmt(r.pensionEE)}</td><td class="td-num" style="color:var(--teal-text)">${fmt(r.pensionER)}</td><td class="td-num font-600">${fmt(r.net)}</td><td><button class="btn btn-xs">Payslip</button></td>`;
     tbody.appendChild(tr);
   });
-  // YTD totals row
-  const totals = document.createElement('tr');
-  totals.style.background = 'var(--surface2)';
-  totals.style.borderTop = '2px solid var(--border2)';
-  totals.innerHTML = `
-    <td class="font-600" colspan="2">Year-to-date total</td>
-    <td class="td-num font-600">${fmt(ytd.gross)}</td>
-    <td class="td-num font-600">${fmt(ytd.paye)}</td>
-    <td class="td-num font-600">${fmt(ytd.niEE)}</td>
-    <td class="td-num font-600" style="color:var(--text2)">${fmt(ytd.niER)}</td>
-    <td class="td-num font-600" style="color:var(--success-text)">${fmt(ytd.pensionEE)}</td>
-    <td class="td-num font-600" style="color:var(--teal-text)">${fmt(ytd.pensionER)}</td>
-    <td class="td-num font-600">${fmt(ytd.net)}</td>
-    <td></td>`;
-  document.getElementById('pay-history-tbody').appendChild(totals);
+  const tot=document.createElement('tr');
+  tot.style.cssText='background:var(--surface2);border-top:2px solid var(--border2)';
+  tot.innerHTML=`<td class="font-600" colspan="2">Year-to-date</td><td class="td-num font-600">${fmt(ytd.gross)}</td><td class="td-num font-600">${fmt(ytd.paye)}</td><td class="td-num font-600">${fmt(ytd.niEE)}</td><td class="td-num font-600" style="color:var(--text2)">${fmt(ytd.niER)}</td><td class="td-num font-600" style="color:var(--success-text)">${fmt(ytd.pensionEE)}</td><td class="td-num font-600" style="color:var(--teal-text)">${fmt(ytd.pensionER)}</td><td class="td-num font-600">${fmt(ytd.net)}</td><td></td>`;
+  tbody.appendChild(tot);
 }
 
-function renderPensionTab(empId) {
-  const emp = EMPLOYEES.find(e => e.id === empId) || EMPLOYEES[0];
-  const ytd = empYTD(empId);
-  // YTD metric cards
-  const m = document.querySelectorAll('#emp-pension .metric-value');
-  if (m[0]) m[0].textContent = fmt(ytd.pensionEE);
-  if (m[1]) m[1].textContent = fmt(ytd.pensionER);
-  if (m[2]) m[2].textContent = fmt(ytd.pensionEE + ytd.pensionER);
-  // Rate labels
-  const eeRateEl = document.getElementById('pension-ee-rate');
-  const erRateEl = document.getElementById('pension-er-rate');
-  if (eeRateEl) eeRateEl.textContent = (emp.pensionEE*100).toFixed(0) + '% ' + (emp.salSac ? '(salary sacrifice)' : '(relief at source)');
-  if (erRateEl) erRateEl.textContent = (emp.pensionER*100).toFixed(0) + '%';
-  // Pension history table
-  const tbody = document.getElementById('pension-history-tbody');
-  if (!tbody) return;
-  tbody.innerHTML = '';
-  const allPeriods = [{ label:'W13 Mar 2026', h:{ [empId]: RUN_HOURS[empId] }, current:true }, ...HISTORY.map(h => ({...h, current:false}))];
-  allPeriods.forEach(period => {
-    const hrs = period.h[empId];
-    if (hrs === undefined) return;
-    if (emp.freq === 'monthly' && !period.current) return;
-    const r = periodCalc(emp, hrs);
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td>${period.label}${period.current ? ' <span class="badge badge-warning" style="font-size:10px">Current</span>' : ''}</td>
-      <td class="td-num">${fmt(r.gross)}</td>
-      <td class="td-num td-muted">${fmt(r.pensionQE)}</td>
-      <td class="td-num" style="color:var(--success-text);font-weight:600">${fmt(r.pensionEE)}</td>
-      <td class="td-num" style="color:var(--teal-text);font-weight:600">${fmt(r.pensionER)}</td>
-      <td class="td-num font-600">${fmt(r.pensionEE + r.pensionER)}</td>`;
+function renderPensionTab(empId){
+  const emp=EMPLOYEES.find(e=>e.id===empId)||EMPLOYEES[0];
+  const ytd=empYTD(empId);
+  const m=document.querySelectorAll('#emp-pension .metric-value');
+  if(m[0])m[0].textContent=fmt(ytd.pensionEE);
+  if(m[1])m[1].textContent=fmt(ytd.pensionER);
+  if(m[2])m[2].textContent=fmt(ytd.pensionEE+ytd.pensionER);
+  const eeEl=document.getElementById('pension-ee-rate'); if(eeEl)eeEl.textContent=(emp.pensionEE*100).toFixed(0)+'% '+(emp.salSac?'(salary sacrifice)':'(relief at source)');
+  const erEl=document.getElementById('pension-er-rate'); if(erEl)erEl.textContent=(emp.pensionER*100).toFixed(0)+'%';
+  const tbody=document.getElementById('pension-history-tbody'); if(!tbody)return;
+  tbody.innerHTML='';
+  const all=[{label:'W13 Mar 2026',h:{[empId]:RUN_HOURS[empId]},current:true},...HISTORY.map(h=>({...h,current:false}))];
+  all.forEach(period=>{
+    const hrs=period.h[empId]; if(hrs===undefined)return;
+    if(emp.freq==='monthly'&&!period.current)return;
+    const r=periodCalc(emp,hrs);
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td>${period.label}${period.current?' <span class="badge badge-warning" style="font-size:10px">Current</span>':''}</td><td class="td-num">${fmt(r.gross)}</td><td class="td-num td-muted">${fmt(r.pensionQE)}</td><td class="td-num" style="color:var(--success-text);font-weight:600">${fmt(r.pensionEE)}</td><td class="td-num" style="color:var(--teal-text);font-weight:600">${fmt(r.pensionER)}</td><td class="td-num font-600">${fmt(r.pensionEE+r.pensionER)}</td>`;
     tbody.appendChild(tr);
   });
-  const totals = document.createElement('tr');
-  totals.style.background = 'var(--surface2)';
-  totals.style.borderTop = '2px solid var(--border2)';
-  totals.innerHTML = `
-    <td class="font-600">Year-to-date total</td>
-    <td class="td-num font-600">${fmt(ytd.gross)}</td>
-    <td></td>
-    <td class="td-num font-600" style="color:var(--success-text)">${fmt(ytd.pensionEE)}</td>
-    <td class="td-num font-600" style="color:var(--teal-text)">${fmt(ytd.pensionER)}</td>
-    <td class="td-num font-600">${fmt(ytd.pensionEE+ytd.pensionER)}</td>`;
-  tbody.appendChild(totals);
+  const tot=document.createElement('tr');
+  tot.style.cssText='background:var(--surface2);border-top:2px solid var(--border2)';
+  tot.innerHTML=`<td class="font-600">Year-to-date</td><td class="td-num font-600">${fmt(ytd.gross)}</td><td></td><td class="td-num font-600" style="color:var(--success-text)">${fmt(ytd.pensionEE)}</td><td class="td-num font-600" style="color:var(--teal-text)">${fmt(ytd.pensionER)}</td><td class="td-num font-600">${fmt(ytd.pensionEE+ytd.pensionER)}</td>`;
+  tbody.appendChild(tot);
 }
 
-function openEmpProfile(empId) {
-  currentEmpId = empId;
-  const emp = EMPLOYEES.find(e => e.id === empId) || EMPLOYEES[0];
-  const nameEl = document.querySelector('#screen-employee-profile .page-title');
-  const subEl  = document.querySelector('#screen-employee-profile .page-sub');
-  const avEl   = document.querySelector('#screen-employee-profile .page-header .flex-center > div');
-  if (nameEl) nameEl.textContent = emp.name;
-  if (subEl)  subEl.innerHTML = emp.dept + ' · ' + emp.site + ' · <span class="mono" style="font-size:11px">' + emp.ni + '</span>';
-  if (avEl)   avEl.textContent = emp.name.split(' ').map(w=>w[0]).join('');
-  // Update personal tab static fields
-  const pd = document.getElementById('emp-personal-details');
-  if (pd) {
-    pd.querySelector('[data-f="payType"]').textContent  = (emp.payType === 'hourly' ? 'Hourly · ' : 'Salary · ') + (emp.payType === 'hourly' ? fmt(emp.rate) + '/hr' : '£' + emp.rate.toLocaleString() + '/yr');
-    pd.querySelector('[data-f="freq"]').textContent    = emp.freq.charAt(0).toUpperCase() + emp.freq.slice(1);
-    pd.querySelector('[data-f="taxCode"]').textContent = emp.taxCode;
-    pd.querySelector('[data-f="niCat"]').textContent   = emp.niCat;
-    pd.querySelector('[data-f="start"]').textContent   = emp.startDate;
-    pd.querySelector('[data-f="dept"]').textContent    = emp.dept + ' — ' + emp.site;
+function openEmpProfile(empId){
+  currentEmpId=empId;
+  const emp=EMPLOYEES.find(e=>e.id===empId)||EMPLOYEES[0];
+  const nameEl=document.querySelector('#screen-employee-profile .page-title'); if(nameEl)nameEl.textContent=emp.name;
+  const subEl=document.querySelector('#screen-employee-profile .page-sub'); if(subEl)subEl.innerHTML=emp.dept+' · '+emp.location+' · <span class="mono" style="font-size:11px">'+emp.ni+'</span>';
+  const avEl=document.querySelector('#screen-employee-profile .page-header .flex-center > div'); if(avEl)avEl.textContent=emp.name.split(' ').map(w=>w[0]).join('');
+  const pd=document.getElementById('emp-personal-details');
+  if(pd){
+    const pf=(f)=>pd.querySelector('[data-f="'+f+'"]');
+    if(pf('payType'))pf('payType').textContent=(emp.payType==='hourly'?'Hourly · ':'')+fmt(emp.rate)+(emp.payType==='hourly'?'/hr':'/yr (salary)');
+    if(pf('freq'))pf('freq').textContent=emp.freq.charAt(0).toUpperCase()+emp.freq.slice(1);
+    if(pf('dept'))pf('dept').textContent=emp.dept+' — '+emp.location;
+    if(pf('costCentre'))pf('costCentre').textContent=emp.costCentre||'—';
+    if(pf('taxCode'))pf('taxCode').textContent=emp.taxCode;
+    if(pf('niCat'))pf('niCat').textContent=emp.niCat;
+    if(pf('start'))pf('start').textContent=emp.startDate;
+    const slEl=document.querySelector('[data-f="studentLoan"]'); if(slEl)slEl.innerHTML=(emp.studentLoan||'None')+' <span class="text-xs text-hint">(DPS)</span>';
   }
   renderPayHistory(empId);
   renderPensionTab(empId);
-  nav('employee-profile', null, 'org');
-  empTab('personal', document.querySelector('#emp-tabs .tab'));
+  nav('employee-profile',null,'org');
+  empTab('personal',document.querySelector('#emp-tabs .tab'));
 }
 
-function initAll() {
+function initAll(){
   renderRunCard();
   renderRunDetailTable();
   renderHoursTable();
@@ -2361,173 +2353,245 @@ function initAll() {
   renderBacsTable();
   renderPayHistory('E001');
   renderPensionTab('E001');
+  updateBdCounts();
 }
 
 // ═══════════════════════════════════════════════════════════════
 // UI / NAVIGATION
 // ═══════════════════════════════════════════════════════════════
+let currentOrgName='The Coffee Co.', currentNavContext='bureau';
 
-let currentOrgName = 'The Coffee Co.';
-let currentNavContext = 'bureau';
-
-function nav(screenId, navEl, context) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('visible'));
-  const el = document.getElementById('screen-' + screenId);
-  if (el) el.classList.add('visible');
-  if (navEl) { document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active')); navEl.classList.add('active'); }
-  const titles = {
-    'bureau-dashboard':'Bureau Dashboard','all-runs':'All pay runs','organisations':'Organisations',
-    'user-management':'User management','global-settings':'Global settings','org-onboarding':'Onboard employer',
-    'org-dashboard':'Dashboard','payroll-runs':'Payroll runs','hours':'Hours & amendments',
-    'employees':'Employees','employee-profile':'Employee profile','onboarding':'Onboarding',
-    'life-events':'Life events','payslips':'Payslips & P60s','pay-elements':'Pay elements',
-    'reports':'Reports','org-settings':'Org settings'
-  };
-  if (context === 'org') {
-    document.getElementById('crumb-current').innerHTML = `<span class="crumb" onclick="exitOrg()" style="cursor:pointer">${currentOrgName}</span> <span class="crumb-sep">›</span> <span class="crumb active">${titles[screenId]||screenId}</span>`;
-  } else {
-    document.getElementById('crumb-current').innerHTML = `<span class="crumb active">${titles[screenId]||screenId}</span>`;
-  }
-  if (screenId==='payroll-runs') { renderRunCard(); }
-  if (screenId==='hours') { renderHoursTable(); }
-  if (screenId==='employees') { renderEmployeesTable(); }
-  if (screenId==='employee-profile') { renderPayHistory(currentEmpId); renderPensionTab(currentEmpId); }
+function nav(screenId,navEl,context){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('visible'));
+  const el=document.getElementById('screen-'+screenId); if(el)el.classList.add('visible');
+  if(navEl){document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));navEl.classList.add('active');}
+  const titles={'bureau-dashboard':'Bureau Dashboard','all-runs':'All pay runs','organisations':'Organisations','user-management':'User management','pay-element-library':'Global pay elements','global-settings':'Global pay elements','org-onboarding':'Onboard employer','org-dashboard':'Dashboard','payroll-runs':'Payroll runs','hours':'Hours & amendments','employees':'Employees','employee-profile':'Employee profile','onboarding':'Onboarding','life-events':'Life events','payslips':'Payslips & P60s','pay-elements':'Pay elements','reports':'Reports','org-settings':'Org settings'};
+  if(context==='org'){document.getElementById('crumb-current').innerHTML=`<span class="crumb" onclick="exitOrg()" style="cursor:pointer">${currentOrgName}</span> <span class="crumb-sep">›</span> <span class="crumb active">${titles[screenId]||screenId}</span>`;}
+  else{document.getElementById('crumb-current').innerHTML=`<span class="crumb active">${titles[screenId]||screenId}</span>`;}
+  if(screenId==='payroll-runs')renderRunCard();
+  if(screenId==='hours')renderHoursTable();
+  if(screenId==='employees')renderEmployeesTable();
+  if(screenId==='employee-profile'){renderPayHistory(currentEmpId);renderPensionTab(currentEmpId);}
 }
-
-function openOrg(orgName, screen) {
-  currentOrgName = orgName;
-  currentNavContext = 'org';
-  document.getElementById('nav-bureau').style.display = 'none';
-  document.getElementById('nav-org').style.display = 'block';
-  document.getElementById('sidebar-mode-label').textContent = orgName;
-  const el = document.getElementById('org-dash-title'); if (el) el.textContent = orgName + ' — Dashboard';
-  const sub = document.getElementById('org-dash-sub'); if (sub) sub.textContent = (orgName==='The Coffee Co.'?'120/AB12345 · Weekly + Monthly':orgName+' · PAYE')+' · RTI live';
-  const prsub = document.getElementById('pr-sub'); if (prsub) prsub.textContent = orgName+' · All frequencies';
-  const screenMap = { 'screen-org-dashboard':'org-dashboard','screen-payroll-runs':'payroll-runs','screen-hours':'hours','screen-onboarding':'onboarding' };
-  nav(screenMap[screen]||'org-dashboard', null, 'org');
-  const first = document.querySelector('#nav-org .nav-item');
-  if (first) { document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active')); first.classList.add('active'); }
+function openOrg(orgName,screen){
+  currentOrgName=orgName; currentNavContext='org';
+  document.getElementById('nav-bureau').style.display='none';
+  document.getElementById('nav-org').style.display='block';
+  document.getElementById('sidebar-mode-label').textContent=orgName;
+  const el=document.getElementById('org-dash-title'); if(el)el.textContent=orgName+' — Dashboard';
+  const sub=document.getElementById('org-dash-sub'); if(sub)sub.textContent=(orgName==='The Coffee Co.'?'120/AB12345 · Weekly + Monthly':orgName+' · PAYE')+' · RTI live';
+  const prsub=document.getElementById('pr-sub'); if(prsub)prsub.textContent=orgName+' · All frequencies';
+  const sm={'screen-org-dashboard':'org-dashboard','screen-payroll-runs':'payroll-runs','screen-hours':'hours','screen-onboarding':'onboarding'};
+  nav(sm[screen]||'org-dashboard',null,'org');
+  const first=document.querySelector('#nav-org .nav-item');
+  if(first){document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));first.classList.add('active');}
 }
-
-function exitOrg() {
-  currentNavContext = 'bureau';
-  document.getElementById('nav-bureau').style.display = 'block';
-  document.getElementById('nav-org').style.display = 'none';
-  document.getElementById('sidebar-mode-label').textContent = 'Bureau Platform';
-  nav('bureau-dashboard', null, 'bureau');
-  const first = document.querySelector('#nav-bureau .nav-item');
-  if (first) { document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active')); first.classList.add('active'); }
+function exitOrg(){
+  currentNavContext='bureau';
+  document.getElementById('nav-bureau').style.display='block';
+  document.getElementById('nav-org').style.display='none';
+  document.getElementById('sidebar-mode-label').textContent='Bureau Platform';
+  nav('bureau-dashboard',null,'bureau');
+  const first=document.querySelector('#nav-bureau .nav-item');
+  if(first){document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));first.classList.add('active');}
 }
-
-function switchRole(role, btn) {
-  document.querySelectorAll('.role-btn').forEach(b=>b.classList.remove('active')); btn.classList.add('active');
+function switchRole(role,btn){
+  document.querySelectorAll('.role-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');
   const names={super:'James Ashworth',bureau:'Sarah Patel',org:'Donna Wright',processor:'Tom Baker'};
   const roles={super:'Super Admin',bureau:'Bureau Admin',org:'Org Admin',processor:'Processor'};
   const ini={super:'JA',bureau:'SP',org:'DW',processor:'TB'};
   document.getElementById('user-name-sb').textContent=names[role];
   document.getElementById('user-role-sb').textContent=roles[role];
   document.getElementById('user-avatar-sb').textContent=ini[role];
-  if (role==='org'||role==='processor') { openOrg('The Coffee Co.','screen-org-dashboard'); } else { exitOrg(); }
+  if(role==='org'||role==='processor')openOrg('The Coffee Co.','screen-org-dashboard');
+  else exitOrg();
 }
+function showModal(id){const e=document.getElementById(id);if(e)e.style.display='flex';}
+function closeModal(id,event){if(!event||event.target===document.getElementById(id)){const e=document.getElementById(id);if(e)e.style.display='none';}}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')document.querySelectorAll('.modal-overlay').forEach(m=>m.style.display='none');});
 
-function showModal(id) { const e=document.getElementById(id); if(e) e.style.display='flex'; }
-function closeModal(id,event) {
-  if (!event||event.target===document.getElementById(id)) { const e=document.getElementById(id); if(e) e.style.display='none'; }
-}
-document.addEventListener('keydown', e=>{ if(e.key==='Escape') document.querySelectorAll('.modal-overlay').forEach(m=>m.style.display='none'); });
-
-function empTab(tab, el) {
+function empTab(tab,el){
   document.querySelectorAll('.emp-tab-panel').forEach(p=>p.classList.remove('visible'));
-  const t=document.getElementById('emp-'+tab); if(t) t.classList.add('visible');
-  document.querySelectorAll('#emp-tabs .tab').forEach(t=>t.classList.remove('active'));
-  if(el) el.classList.add('active');
-  if(tab==='ytd') renderPayHistory(currentEmpId);
-  if(tab==='pension') renderPensionTab(currentEmpId);
+  const t=document.getElementById('emp-'+tab);if(t)t.classList.add('visible');
+  document.querySelectorAll('#emp-tabs .tab').forEach(t=>t.classList.remove('active'));if(el)el.classList.add('active');
+  if(tab==='ytd')renderPayHistory(currentEmpId);
+  if(tab==='pension')renderPensionTab(currentEmpId);
 }
-function umTab(tab, el) {
+function umTab(tab,el){
   ['hierarchy','users','create'].forEach(t=>{const p=document.getElementById('um-'+t);if(p)p.style.display='none';});
-  const t=document.getElementById('um-'+tab); if(t) t.style.display='block';
-  document.querySelectorAll('#um-tabs .tab').forEach(t=>t.classList.remove('active')); if(el) el.classList.add('active');
+  const t=document.getElementById('um-'+tab);if(t)t.style.display='block';
+  document.querySelectorAll('#um-tabs .tab').forEach(t=>t.classList.remove('active'));if(el)el.classList.add('active');
 }
-function peLibTab(tab, el) {
-  document.getElementById('pe-global').style.display=tab==='global'?'block':'none';
-  document.getElementById('pe-org').style.display=tab==='org'?'block':'none';
-  document.querySelectorAll('#pe-tabs .tab').forEach(t=>t.classList.remove('active')); if(el) el.classList.add('active');
+function peLibTab(tab,el){
+  const eg=document.getElementById('pe-global');if(eg)eg.style.display=tab==='global'?'block':'none';
+  const eo=document.getElementById('pe-org');if(eo)eo.style.display=tab==='org'?'block':'none';
+  document.querySelectorAll('#pe-tabs .tab').forEach(t=>t.classList.remove('active'));if(el)el.classList.add('active');
 }
-function osTab(tab, el) {
-  ['company','hmrc','schedules','users'].forEach(t=>{const p=document.getElementById('os-'+t);if(p)p.style.display='none';});
-  const t=document.getElementById('os-'+tab); if(t) t.style.display='block';
-  document.querySelectorAll('#os-tabs .tab').forEach(t=>t.classList.remove('active')); if(el) el.classList.add('active');
+function pelTab(tab,el){
+  const ee=document.getElementById('pel-elements');if(ee)ee.style.display=tab==='elements'?'block':'none';
+  const er=document.getElementById('pel-rates');if(er)er.style.display=tab==='rates'?'block':'none';
+  document.querySelectorAll('#pel-tabs .tab').forEach(t=>t.classList.remove('active'));if(el)el.classList.add('active');
 }
-function wizN(step) {
+function osTab(tab,el){
+  ['company','paye','locations','hmrc','schedules','users'].forEach(t=>{const p=document.getElementById('os-'+t);if(p)p.style.display='none';});
+  const t=document.getElementById('os-'+tab);if(t)t.style.display='block';
+  document.querySelectorAll('#os-tabs .tab').forEach(t=>t.classList.remove('active'));if(el)el.classList.add('active');
+}
+function hoursTab(tab,el){
+  ['current','backdated','future'].forEach(t=>{const p=document.getElementById('hours-tab-'+t);if(p)p.style.display='none';});
+  const t=document.getElementById('hours-tab-'+tab);if(t)t.style.display='block';
+  document.querySelectorAll('#hours-tabs .tab').forEach(t=>t.classList.remove('active'));if(el)el.classList.add('active');
+}
+function wizN(step){
   document.getElementById('wiz-p'+step).style.display='none';
   document.getElementById('wiz-p'+(step+1)).style.display='block';
-  const c=document.getElementById('wiz-s'+step); c.className='step done'; c.querySelector('.step-num').textContent='✓';
-  const l=document.getElementById('wiz-l'+step); if(l) l.classList.add('done');
-  const n=document.getElementById('wiz-s'+(step+1)); if(n) n.className='step active';
+  const c=document.getElementById('wiz-s'+step);c.className='step done';c.querySelector('.step-num').textContent='✓';
+  const l=document.getElementById('wiz-l'+step);if(l)l.classList.add('done');
+  const n=document.getElementById('wiz-s'+(step+1));if(n)n.className='step active';
 }
-function wizB(step) {
+function wizB(step){
   document.getElementById('wiz-p'+step).style.display='none';
   document.getElementById('wiz-p'+(step-1)).style.display='block';
-  const c=document.getElementById('wiz-s'+step); c.className='step pending'; c.querySelector('.step-num').textContent=step;
-  const l=document.getElementById('wiz-l'+(step-1)); if(l) l.classList.remove('done');
-  const p=document.getElementById('wiz-s'+(step-1)); if(p){p.className='step active';p.querySelector('.step-num').textContent=step-1;}
+  const c=document.getElementById('wiz-s'+step);c.className='step pending';c.querySelector('.step-num').textContent=step;
+  const l=document.getElementById('wiz-l'+(step-1));if(l)l.classList.remove('done');
+  const p=document.getElementById('wiz-s'+(step-1));if(p){p.className='step active';p.querySelector('.step-num').textContent=step-1;}
 }
-function activateWiz() {
+function activateWiz(){
   document.getElementById('wiz-p5').style.display='none';
   document.getElementById('wiz-complete').style.display='block';
-  const l=document.getElementById('wiz-s5'); l.className='step done'; l.querySelector('.step-num').textContent='✓';
+  const l=document.getElementById('wiz-s5');l.className='step done';l.querySelector('.step-num').textContent='✓';
   document.getElementById('wiz-l4').classList.add('done');
 }
-function testRTI() { const r=document.getElementById('rti-result'); r.style.display='none'; setTimeout(()=>{r.style.display='inline-flex';},900); }
-function testRTI2() { const r=document.getElementById('rti2-result'); r.textContent='↻ Testing...'; r.className='badge badge-warning'; setTimeout(()=>{r.textContent='✓ Connected · verified just now';r.className='badge badge-success';},900); }
-function approveRun() {
+function testRTI(){const r=document.getElementById('rti-result');r.style.display='none';setTimeout(()=>{r.style.display='inline-flex';},900);}
+function testRTI2(){const r=document.getElementById('rti2-result');r.textContent='↻ Testing...';r.className='badge badge-warning';setTimeout(()=>{r.textContent='✓ Connected · verified just now';r.className='badge badge-success';},900);}
+function approveRun(){
   closeModal('modal-run-approve');
-  const b=document.querySelector('.run-card .badge-warning'); if(b){b.className='badge badge-success';b.textContent='Approved — FPS submitted';}
+  const b=document.querySelector('.run-card .badge-warning');if(b){b.className='badge badge-success';b.textContent='Approved — awaiting HMRC submission';}
 }
-function bdFilter(filter, el) {
-  document.querySelectorAll('.pill-tab').forEach(t=>t.classList.remove('active')); if(el) el.classList.add('active');
+function submitFPS(){
+  const r=document.getElementById('fps-submit-result');if(r)r.style.display='flex';
+  const b=document.getElementById('fps-submit-btn');
+  if(b){b.textContent='FPS submitted ✓';b.disabled=true;b.className='btn btn-success';}
+}
+function bdFilter(filter,el){
+  document.querySelectorAll('.pill-tab').forEach(t=>t.classList.remove('active'));if(el)el.classList.add('active');
   document.querySelectorAll('#bd-org-tbody tr.bd-row').forEach(row=>{
-    row.style.display = filter==='all'?'' : filter==='action'?(row.classList.contains('bd-row-action')?'':'none'):(row.classList.contains('bd-row-clear')?'':'none');
+    row.style.display=filter==='all'?'':filter==='action'?(row.classList.contains('bd-row-action')?'':'none'):(row.classList.contains('bd-row-clear')?'':'none');
   });
 }
-function bdSearch(val) {
+function bdSearch(val){
   const q=val.toLowerCase();
   document.querySelectorAll('#bd-org-tbody tr.bd-row').forEach(row=>{row.style.display=(!q||row.textContent.toLowerCase().includes(q))?'':'none';});
 }
+function updateBdCounts(){
+  const actionCount=document.querySelectorAll('#bd-org-tbody tr.bd-row-action').length;
+  const clearCount=document.querySelectorAll('#bd-org-tbody tr.bd-row-clear').length;
+  const total=actionCount+clearCount;
+  const pills=document.querySelectorAll('#screen-bureau-dashboard .pill-tab');
+  if(pills[0])pills[0].textContent='All ('+total+')';
+  if(pills[1])pills[1].textContent='Needs action ('+actionCount+')';
+  if(pills[2])pills[2].textContent='Clear ('+clearCount+')';
+}
 const roleHints={bureau:'Bureau Admins manage multiple organisations and can create Org Admins & Processors.',org:'Org Admins can approve payroll and manage a single organisation.',processor:'Processors can initiate runs and enter hours but cannot approve payroll.'};
 const rolePerms={bureau:['✓ Create Org Admins & Processors','✓ Run & approve payroll','✓ View all pay elements','✗ Cannot create Global Pay Elements'],org:['✓ Approve payroll runs','✓ Amend pay run','✓ View org data','✗ Cannot create pay elements'],processor:['✓ Initiate payroll runs','✓ Enter hours & amendments','✗ Cannot approve payroll','✗ No financial data access']};
-function toggleOrgAccess() {
+function toggleOrgAccess(){
   const role=document.getElementById('create-user-role').value;
-  document.getElementById('org-access-field').style.display=(role==='org'||role==='processor')?'flex':'none';
-  document.getElementById('bureau-org-access').style.display=role==='bureau'?'block':'none';
+  const of=document.getElementById('org-access-field');if(of)of.style.display=(role==='org'||role==='processor')?'flex':'none';
+  const bf=document.getElementById('bureau-org-access');if(bf)bf.style.display=role==='bureau'?'block':'none';
   const hint=document.getElementById('role-hint-text');
-  const permBox=document.getElementById('permission-preview');
-  const permContent=document.getElementById('perm-preview-content');
-  if(role&&roleHints[role]){hint.textContent=roleHints[role];hint.style.display='block';permBox.style.display='block';permContent.innerHTML=rolePerms[role].map(p=>`<span class="perm-tag ${p.startsWith('✓')?'can':'cannot'}">${p}</span>`).join('');}
-  else{hint.style.display='none';permBox.style.display='none';}
+  const pb=document.getElementById('permission-preview');
+  const pc=document.getElementById('perm-preview-content');
+  if(role&&roleHints[role]){if(hint){hint.textContent=roleHints[role];hint.style.display='block';}if(pb)pb.style.display='block';if(pc)pc.innerHTML=rolePerms[role].map(p=>`<span class="perm-tag ${p.startsWith('✓')?'can':'cannot'}">${p}</span>`).join('');}
+  else{if(hint)hint.style.display='none';if(pb)pb.style.display='none';}
 }
-function toggleOrgAccess2() { const r=document.getElementById('modal-role-sel').value; document.getElementById('modal-org-field').style.display=(r==='org'||r==='processor')?'flex':'none'; }
-function submitCreateUser() {
-  const role=document.getElementById('create-user-role').value; if(!role){alert('Please select a role');return;}
-  document.querySelector('#um-create .card').innerHTML=`<div style="text-align:center;padding:32px"><div style="width:48px;height:48px;border-radius:50%;background:var(--success-bg);border:2px solid var(--success);display:flex;align-items:center;justify-content:center;font-size:22px;margin:0 auto 12px">✓</div><div class="page-title" style="font-size:16px;margin-bottom:8px">Invite sent!</div><div class="text-muted" style="margin-bottom:20px">The user will receive an email to set their password.</div><button class="btn btn-primary" onclick="location.reload()">Create another user</button></div>`;
+function toggleOrgAccess2(){const r=document.getElementById('modal-role-sel');if(r){const mof=document.getElementById('modal-org-field');if(mof)mof.style.display=(r.value==='org'||r.value==='processor')?'flex':'none';}}
+function submitCreateUser(){
+  const role=document.getElementById('create-user-role').value;if(!role){alert('Please select a role');return;}
+  const card=document.querySelector('#um-create .card');
+  if(card)card.innerHTML='<div style="text-align:center;padding:32px"><div style="width:48px;height:48px;border-radius:50%;background:var(--success-bg);border:2px solid var(--success);display:flex;align-items:center;justify-content:center;font-size:22px;margin:0 auto 12px">✓</div><div class="page-title" style="font-size:16px;margin-bottom:8px">Invite sent!</div><div class="text-muted" style="margin-bottom:20px">The user will receive an email to set their password.</div><button class="btn btn-primary" onclick="location.reload()">Create another user</button></div>';
 }
-function updateReportStatus() {
+function updateReportStatus(){
   const val=document.getElementById('report-run-sel').value;
-  const a=document.getElementById('report-alert-approved'); const ip=document.getElementById('report-alert-inprogress'); const b=document.getElementById('bacs-download-btn');
-  if(val==='inprogress'){a.style.display='none';ip.style.display='flex';if(b)b.disabled=true;}
-  else{a.style.display='flex';ip.style.display='none';if(b)b.disabled=false;}
+  const a=document.getElementById('report-alert-approved');const ip=document.getElementById('report-alert-inprogress');const b=document.getElementById('bacs-download-btn');
+  if(val==='inprogress'){if(a)a.style.display='none';if(ip)ip.style.display='flex';if(b)b.disabled=true;}
+  else{if(a)a.style.display='flex';if(ip)ip.style.display='none';if(b)b.disabled=false;}
+}
+function addWizLocation(){
+  const container=document.getElementById('wiz-locations-list');
+  const n=container.querySelectorAll('.wiz-loc-row').length+1;
+  const row=document.createElement('div');
+  row.className='wiz-loc-row';
+  row.style.cssText='display:grid;grid-template-columns:1fr 1.5fr 120px 140px 44px;gap:10px;align-items:end;padding-bottom:10px;border-bottom:1px solid var(--border);margin-bottom:10px';
+  row.innerHTML=`<div class="form-group"><label>Location name</label><input placeholder="e.g. Location ${n}"></div><div class="form-group"><label>Address</label><input placeholder="Street, postcode"></div><div class="form-group"><label>Location code</label><input class="mono" placeholder="LOC-00${n}" style="text-transform:uppercase"></div><div class="form-group"><label>Cost centre</label><input class="mono" placeholder="CC-CODE"></div><div class="form-group"><label style="visibility:hidden">Del</label><button class="btn btn-xs btn-danger w-full" onclick="removeWizLocation(this)" title="Remove">✕</button></div>`;
+  container.appendChild(row);
+}
+function removeWizLocation(btn){
+  const rows=document.querySelectorAll('.wiz-loc-row');
+  if(rows.length>1)btn.closest('.wiz-loc-row').remove();
+  else alert('At least one location is required.');
 }
 
 // ── BOOT ──
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded',function(){
   document.querySelector('#nav-bureau .nav-item').classList.add('active');
   initAll();
 });
-if (document.readyState !== 'loading') {
+if(document.readyState!=='loading'){
   document.querySelector('#nav-bureau .nav-item').classList.add('active');
   initAll();
 }
 </script>
+<!-- FPS Submit modal -->
+<div class="modal-overlay" id="modal-fps-submit" style="display:none" onclick="closeModal('modal-fps-submit',event)">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-title">Submit to HMRC — Full Payment Submission</div>
+    <div class="modal-sub">Mar 2026 Monthly · The Coffee Co. · 12 employees</div>
+    <div class="alert alert-info"><div class="alert-icon">ℹ</div><div>An FPS will be sent to HMRC via RTI using the gateway credentials on file. This officially notifies HMRC of all payments made this period.</div></div>
+    <div class="info-row"><span class="info-label">PAYE reference</span><span class="info-value mono">120/AB12345</span></div>
+    <div class="info-row"><span class="info-label">Submission type</span><span class="info-value">Full Payment Submission (FPS)</span></div>
+    <div class="info-row"><span class="info-label">Employees included</span><span class="info-value">12</span></div>
+    <div class="info-row"><span class="info-label">PAYE due to HMRC</span><span class="info-value mono font-600">£10,944.00</span></div>
+    <div class="info-row"><span class="info-label">NI due to HMRC</span><span class="info-value mono font-600">£11,628.00</span></div>
+    <div class="info-row"><span class="info-label">Payment due by</span><span class="info-value">19 Apr 2026 (PAYE month end)</span></div>
+    <div id="fps-submit-result" style="display:none" class="alert alert-success"><div class="alert-icon">✓</div><div><span class="alert-title">FPS accepted by HMRC.</span> Correlation ID: HMRC-2026-MAR-AB12345. BACS file now available in Reports.</div></div>
+    <div class="modal-footer">
+      <button class="btn" onclick="closeModal('modal-fps-submit')">Cancel</button>
+      <button class="btn btn-primary" id="fps-submit-btn" onclick="submitFPS()">Submit FPS to HMRC →</button>
+    </div>
+  </div>
+</div>
+
+<!-- New location modal -->
+<div class="modal-overlay" id="modal-new-location" style="display:none" onclick="closeModal('modal-new-location',event)">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-title">Add location</div>
+    <div class="modal-sub">Add a physical location to this PAYE scheme. Employees are assigned to locations at onboarding.</div>
+    <div class="form-row fr-2">
+      <div class="form-group"><label>Location name</label><input placeholder="e.g. Manchester Office"></div>
+      <div class="form-group"><label>Location code</label><input class="mono" placeholder="LOC-003" style="text-transform:uppercase"></div>
+    </div>
+    <div class="form-group" style="margin-bottom:12px"><label>Address</label><input placeholder="Street address, town, postcode"></div>
+    <div class="form-row fr-2">
+      <div class="form-group"><label>Cost centre (optional)</label><input class="mono" placeholder="CC-MCR"><span class="hint">Used in payroll reports for reconciliation</span></div>
+      <div class="form-group"><label>PAYE scheme</label><select><option>120/AB12345 — Main scheme</option></select></div>
+    </div>
+    <div class="modal-footer"><button class="btn" onclick="closeModal('modal-new-location')">Cancel</button><button class="btn btn-primary">Add location</button></div>
+  </div>
+</div>
+
+<!-- New PAYE scheme modal (launches same journey) -->
+<div class="modal-overlay" id="modal-new-paye-scheme" style="display:none" onclick="closeModal('modal-new-paye-scheme',event)">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-title">Add PAYE scheme</div>
+    <div class="modal-sub">Create an additional PAYE scheme for this organisation. This is for separate legal entities or distinct cost-centre billing structures.</div>
+    <div class="alert alert-info"><div class="alert-icon">ℹ</div><div>You will complete the same onboarding steps as the main scheme: HMRC credentials, RTI test, locations and pay schedules. Each scheme submits FPS independently.</div></div>
+    <div class="form-row fr-2">
+      <div class="form-group"><label>Scheme name</label><input placeholder="e.g. Subsidiary Ltd"></div>
+      <div class="form-group"><label>PAYE employer reference</label><input class="mono" placeholder="e.g. 340/CD99002"></div>
+    </div>
+    <div class="modal-footer"><button class="btn" onclick="closeModal('modal-new-paye-scheme')">Cancel</button><button class="btn btn-primary" onclick="closeModal('modal-new-paye-scheme');nav('org-onboarding',null,'bureau')">Start PAYE scheme setup →</button></div>
+  </div>
+</div>
+
 </body>
 </html>
